@@ -146,6 +146,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.7.1 | 2026-11-12 | Key chips show each key in its own box (Alt and W side by side, no "+"), like Karbon's own tooltips, with a clearer outline. | Draft |
 | 0.7.0 | 2026-11-12 | Renamed to Navica Keys for Karbon. New icon. Store listing, screenshots, privacy policy, and homepage link. | Draft |
 | 0.6.0 | 2026-11-12 | Toolbar key chips now sit centred under each icon without changing Karbon's layout. New Comment shortcut (c). Fixed the My Week chip landing at the bottom of the sidebar. | Unpublished |
 | 0.5.1 | 2026-11-12 | Fixed toolbar key chips wrapping onto a second line. R is now Reply to All and Shift+R Reply. Dialog tab keys moved to Alt+Shift+W/C so no default clashes with Karbon's own keys. Reset-to-default is now an icon. | Unpublished |

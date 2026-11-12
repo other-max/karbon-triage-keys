@@ -104,9 +104,9 @@
     Meta: navigator.platform.startsWith('Mac') ? '⌘' : 'Meta',
   };
 
-  // "Alt+w" -> "Alt + W", "W" -> "Shift + W", "#" -> "#".
-  function formatBinding(binding) {
-    if (!binding) return '';
+  // "Alt+w" -> ["Alt", "W"], "W" -> ["Shift", "W"], "#" -> ["#"].
+  function bindingKeys(binding) {
+    if (!binding) return [];
     // Split on "+" but keep a literal "+" key ("Ctrl++" -> ["Ctrl", "+"]).
     const parts = binding.endsWith('++')
       ? [...binding.slice(0, -2).split('+'), '+']
@@ -118,7 +118,12 @@
       if (!mods.length && key === key.toUpperCase()) mods.push('Shift');
       shown = key.toUpperCase();
     }
-    return [...mods, shown].join(' + ');
+    return [...mods, shown];
+  }
+
+  // "Alt+w" -> "Alt + W", for plain-text messages and labels.
+  function formatBinding(binding) {
+    return bindingKeys(binding).join(' + ');
   }
 
   function isModified(binding) {
@@ -214,6 +219,7 @@
     KARBON_SHORTCUTS,
     DEFAULTS,
     eventToBinding,
+    bindingKeys,
     formatBinding,
     isModified,
     mergeSettings,

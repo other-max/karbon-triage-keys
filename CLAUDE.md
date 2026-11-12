@@ -17,7 +17,7 @@ Chrome extension (Manifest V3, no build step) that adds keyboard shortcuts and o
 - Every shortcut presses Karbon's own button rather than calling its API, so Karbon updates the list itself (it auto-advances after Clear).
 - The open email is the row whose inner `[role=button]` has `khq-bg-sentiment-action-tint`. Toolbar buttons share `data-e2e` values with the row hover icons, so look for the ones outside `[data-triage-list-item-id]`.
 - Many Karbon buttons are `<khq-button>` web components: click the `button` in their `shadowRoot`, and don't put children inside them (there's no slot, so they won't render).
-- Toolbar hint chips float in a fixed `.ktk-layer` centred under each icon so Karbon's toolbar layout is never changed. Chips on links and text buttons sit inline beside them. Chips copy Karbon's Help modal style (`#e6e6e6` / `#999`, 2px radius, Metric font, keys written like `Alt + W`).
+- Toolbar hint chips float in a fixed `.ktk-layer` centred under each icon so Karbon's toolbar layout is never changed. Chips on links and text buttons sit inline beside them. Each chip is a row of key boxes (`.ktk-cap`), one per key with no `+`, like Karbon's own tooltips; the boxes use Karbon's Help modal colours (`#e6e6e6`, Metric font) with a faint outline. `formatBinding` (`Alt + W`) is only for plain-text messages.
 - "Add to My Week: next week" adds the email, then picks `button__listItem__week-1` from the This Week picker. Karbon re-renders the side tray after the save, so it waits and retries.
 - Default keys must not clash with Karbon's built-ins (`Ctrl+K`, `Alt+S/E/N/W/C/T`, `Ctrl+Alt+T`). R is Reply to All and Shift+R is Reply.
 

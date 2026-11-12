@@ -1,17 +1,23 @@
 // Settings page: edits the settings in chrome.storage.sync that the content
 // script reads. Every change saves immediately.
 
-const { ACTIONS, GROUPS, KARBON_SHORTCUTS, DEFAULTS, formatBinding, eventToBinding, findConflicts } = globalThis.KTK;
+const { ACTIONS, GROUPS, KARBON_SHORTCUTS, DEFAULTS, bindingKeys, formatBinding, eventToBinding, findConflicts } = globalThis.KTK;
 
 let settings;
 let capturingId = null;
 
 const $ = (sel) => document.querySelector(sel);
 
-function chip(text) {
+// One box per key, no "+" (Alt+w -> [Alt] [W]).
+function chip(binding) {
   const el = document.createElement('span');
   el.className = 'chip';
-  el.textContent = text;
+  for (const key of bindingKeys(binding)) {
+    const cap = document.createElement('span');
+    cap.className = 'cap';
+    cap.textContent = key;
+    el.append(cap);
+  }
   return el;
 }
 
@@ -175,7 +181,7 @@ function renderShortcuts() {
       p.textContent = 'Press a key… (Esc to cancel)';
       keyButton.append(p);
     } else if (s.binding) {
-      keyButton.append(chip(formatBinding(s.binding)));
+      keyButton.append(chip(s.binding));
       keyButton.setAttribute('aria-label', `${action.label}: ${formatBinding(s.binding)}. Click to change.`);
     } else {
       const p = document.createElement('span');
@@ -252,7 +258,7 @@ function renderBuiltins() {
   $('#builtins').replaceChildren(...KARBON_SHORTCUTS.map(([binding, label]) => {
     const item = document.createElement('span');
     item.className = 'builtin';
-    const c = chip(formatBinding(binding));
+    const c = chip(binding);
     c.classList.add('chip--karbon');
     item.append(c, label);
     return item;

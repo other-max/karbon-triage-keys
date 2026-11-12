@@ -6,7 +6,7 @@
 // updates the list itself; the recorded requests are in docs/karbon-api.md.
 // Key chips copy the Shortcuts row in Karbon's Help modal.
 
-const { ACTIONS, GROUPS, KARBON_SHORTCUTS, eventToBinding, formatBinding } = globalThis.KTK;
+const { ACTIONS, GROUPS, KARBON_SHORTCUTS, eventToBinding, bindingKeys } = globalThis.KTK;
 
 let settings = globalThis.KTK.mergeSettings(null);
 
@@ -253,25 +253,30 @@ document.addEventListener('keydown', (event) => {
 
 // ---------- on-screen hints ----------
 
-// .ktk-key copies Karbon's Help modal chip (.help-modal__shortcuts__item span):
-// #e6e6e6 background, #999 text, 2px radius, 0 5px padding, Metric font.
+// A chip (.ktk-key) is a row of key boxes (.ktk-cap), one per key and no
+// "+", like Karbon's own tooltips. Boxes copy Karbon's Help modal chip
+// (.help-modal__shortcuts__item span): #e6e6e6 / #999, 2px radius, Metric.
 const STYLE = `
 .ktk-key {
-  display: inline-block; align-self: center; flex: none;
-  background: #e6e6e6; color: #999; border-radius: 2px; padding: 0 5px;
+  display: inline-flex; align-items: center; gap: 2px; align-self: center; flex: none;
   font-family: Metric, sans-serif; font-weight: 400; font-size: 12px; line-height: 17px;
   white-space: nowrap; pointer-events: none;
 }
-.ktk-contrast .ktk-key { background: #4b5563; color: #fff; }
+.ktk-cap {
+  display: inline-block; box-sizing: border-box; min-width: 17px; padding: 0 4px; text-align: center;
+  background: #e6e6e6; color: #888; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+}
+.ktk-contrast .ktk-cap { background: #4b5563; color: #fff; box-shadow: none; font-weight: 600; }
 /* Toolbar chips float in their own layer, centred just under each icon, so
    Karbon's toolbar layout is never touched. Below Karbon's dialogs/menus. */
 .ktk-layer { position: fixed; inset: 0; pointer-events: none; z-index: 20; }
 .ktk-key--under {
   position: fixed; transform: translateX(-50%);
-  padding: 0 4px; font-size: 10px; line-height: 12px;
+  gap: 1px; font-size: 10px; line-height: 13px;
 }
+.ktk-key--under .ktk-cap { min-width: 13px; padding: 0 3px; }
 .ktk-key--inline { margin: 0 0 0 6px; vertical-align: middle; }
-[data-e2e="button__splitButtonMainAction"] .ktk-key { background: rgba(255,255,255,.22); color: rgba(255,255,255,.85); }
+[data-e2e="button__splitButtonMainAction"] .ktk-cap { box-shadow: none; background: rgba(255,255,255,.22); color: rgba(255,255,255,.85); }
 
 .ktk-help-launch {
   position: fixed; right: 16px; bottom: 12px; z-index: 2147483000;
@@ -295,7 +300,8 @@ const STYLE = `
 .ktk-help-section + .ktk-help-section { margin-top: 18px; }
 .ktk-help-items { display: flex; flex-wrap: wrap; gap: 10px 12px; }
 .ktk-help-item { display: flex; flex-direction: column; align-items: center; min-width: 72px; max-width: 120px; text-align: center; }
-.ktk-help-item .ktk-key { font-size: 16px; line-height: 22.4px; min-width: 55px; text-align: center; }
+.ktk-help-item .ktk-key { gap: 3px; font-size: 16px; line-height: 22.4px; }
+.ktk-help-item .ktk-cap { min-width: 22px; padding: 0 5px; }
 .ktk-help-foot { margin-top: 18px; font-size: 13px; }
 .ktk-help-foot a { color: #4a7fd6; cursor: pointer; }
 
@@ -332,12 +338,24 @@ function tabLabel(selector) {
   return tab?.querySelector(SELECTORS.tabLabel) ?? tab;
 }
 
-function keyChip(text, variant, owner) {
+function keyChip(binding, variant, owner) {
   const el = document.createElement('span');
   el.className = variant ? `ktk-key ktk-key--${variant}` : 'ktk-key';
-  el.textContent = text;
+  setKeys(el, binding);
   if (owner) el.dataset.ktkFor = owner;
   return el;
+}
+
+// Fill a chip with one box per key; skips the DOM work if nothing changed.
+function setKeys(el, binding) {
+  if (el.dataset.binding === binding) return;
+  el.dataset.binding = binding;
+  el.replaceChildren(...bindingKeys(binding).map((key) => {
+    const cap = document.createElement('span');
+    cap.className = 'ktk-cap';
+    cap.textContent = key;
+    return cap;
+  }));
 }
 
 function showsHint(id) {
@@ -373,8 +391,7 @@ function placeUnderChip(id, target) {
     chip = keyChip('', 'under', id);
     layer.append(chip);
   }
-  const text = formatBinding(settings.shortcuts[id].binding);
-  if (chip.textContent !== text) chip.textContent = text;
+  setKeys(chip, settings.shortcuts[id].binding);
   const left = `${Math.round(rect.left + rect.width / 2)}px`;
   const top = `${Math.round(rect.bottom - 3)}px`;
   if (chip.style.left !== left) chip.style.left = left;
@@ -388,15 +405,12 @@ function placeChip(id) {
   const existing = document.querySelectorAll(`[data-ktk-for="${id}"]`);
   if (!target) return existing.forEach((el) => el.remove());
 
-  const text = formatBinding(settings.shortcuts[id].binding);
+  const binding = settings.shortcuts[id].binding;
   const siblings = placement === 'after' ? chipRunAfter(target) : [...target.children];
   const mine = siblings.find((el) => el.dataset.ktkFor === id);
   existing.forEach((el) => { if (el !== mine) el.remove(); });
-  if (mine) {
-    if (mine.textContent !== text) mine.textContent = text;
-    return;
-  }
-  const chip = keyChip(text, variant, id);
+  if (mine) return setKeys(mine, binding);
+  const chip = keyChip(binding, variant, id);
   if (placement === 'after') (siblings.at(-1) ?? target).after(chip);
   else target.append(chip);
 }
@@ -405,7 +419,7 @@ function ensureHelpLauncher() {
   let launcher = document.querySelector('.ktk-help-launch');
   if (!(settings.helpLinkEnabled && onTriageList())) return launcher?.remove();
   const help = settings.shortcuts.toggleHelp;
-  const text = help.enabled && help.binding ? formatBinding(help.binding) : '';
+  const text = help.enabled && help.binding ? help.binding : '';
   if (launcher && launcher.dataset.key === text) return;
   launcher?.remove();
   launcher = document.createElement('button');
@@ -447,7 +461,7 @@ function showHelp() {
     for (const [binding, label] of section.items) {
       const item = document.createElement('div');
       item.className = 'ktk-help-item';
-      item.append(keyChip(formatBinding(binding)), label);
+      item.append(keyChip(binding), label);
       items.append(item);
     }
     wrap.append(title, items);
