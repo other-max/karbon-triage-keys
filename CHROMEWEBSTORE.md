@@ -50,6 +50,7 @@ TBD (only needed if published).
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 0.4.0 | 2026-11-12 | Key chips moved to the open email's toolbar and restyled to match Karbon's Help modal; dialog hints for Work/Contact, Add (Ctrl+Enter) and Cancel (Esc); shortcut list includes Karbon's built-in keys. |
 | 0.3.0 | 2026-11-12 | View new items (n), Work/Contact tab switch (Alt+W/Alt+C), on-screen key hints and ? cheat sheet; dropped the unused API host permission. |
 | 0.2.0 | 2026-11-12 | Working shortcuts: # Clear, w Add to My Week, t Add to Timeline. |
 | 0.1.0 | 2026-11-12 | Skeleton: `#` key handler with stubbed actions. |

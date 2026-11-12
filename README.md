@@ -4,16 +4,23 @@ Chrome extension that adds keyboard shortcuts to Karbon's Triage inbox:
 
 | Key | Action |
 |-----|--------|
-| `#` | Clear (archive) the email in focus |
-| `w` | Add the email in focus to My Week |
-| `t` | Open "Add to Timeline" (the briefcase) for the email in focus |
+| `#` | Clear (archive) the open email |
+| `w` | Add the open email to My Week |
+| `t` | Open "Add to Timeline" (the briefcase) for the open email |
 | `n` | View new triage items (when Karbon shows the button) |
-| `Alt+W` / `Alt+C` | In the Add to Timeline dialog: switch to Work / Contact |
-| `?` | Show the cheat sheet |
+| `?` | Show the shortcut list (also lists Karbon's built-in keys) |
 
-"In focus" means the email open in the reading pane. Single-key shortcuts are ignored while you're typing or while a Karbon dialog is open; the Alt shortcuts work while typing in the dialog's search box.
+In the Add to Timeline dialog:
 
-**On-screen hints:** key badges appear on Karbon's own buttons (the row's Clear and briefcase icons, Add to My Week, View New Triage Items, the dialog's Work/Contact tabs), and a key bar sits in the bottom-right corner. Hide them with the × on the bar, or bring them back from the `?` cheat sheet.
+| Key | Action |
+|-----|--------|
+| `Alt + W` / `Alt + C` | Switch to Work / Contact (works while typing in the search box) |
+| `Ctrl + Enter` | Add |
+| `Esc` | Cancel (Karbon's own behavior) |
+
+Single-key shortcuts are ignored while you're typing or while a Karbon dialog is open. Inside the dialog, `Alt + W` / `Alt + C` take over Karbon's global "new Work" / "new Contact" keys.
+
+**On-screen hints:** key chips styled like the Shortcuts row in Karbon's Help modal appear next to the open email's toolbar icons (briefcase `T`, Clear `#`), Add to My Week, View New Triage Items, and the dialog's tabs and buttons. A `? Shortcuts` link sits bottom-right; the shortcut list can turn the chips off and on.
 
 ## Install (unpacked)
 
