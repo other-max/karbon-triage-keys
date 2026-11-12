@@ -70,7 +70,7 @@ Re-render after changing chip styles, default keys, or the settings page.
 | Permission | Type | Justification |
 |------------|------|---------------|
 | `storage` | permissions | Saves the user's shortcut settings: which key each shortcut uses, which shortcuts and key hints are on, the hint style, and whether "Add to My Week" plans for this week or next. Chrome syncs them across the user's own profiles. Nothing else is stored. |
-| `https://app2.karbonhq.com/*` | host_permissions | Karbon's web app, the only site the extension works on. Its content script listens for the shortcut keys and, when one is pressed, presses Karbon's matching button for the open email (Clear, Add to My Week, Add to Timeline, Reply, the Create new menu, and so on). It also places small key hints beside those buttons. It reads no email content and makes no network requests. |
+| `https://app2.karbonhq.com/*` | host_permissions | Karbon's web app, the only site the extension works on. Its content script listens for the shortcut keys and, when one is pressed, presses Karbon's matching button for the open email (Clear, Add to My Week, Add to Timeline, Reply, and so on), or picks New email, New note or New work from Karbon's Create new (+) menu. It also places small key hints beside those buttons. It reads no email content and makes no network requests. |
 
 **Remote code:** No. All code ships in the package.
 
@@ -137,7 +137,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 - [ ] Tools page and privacy page live on navica.llc (`navica-marketing`)
 - [ ] Test 0.7.0 by hand from this folder, unpacked: icon shows in the toolbar, settings page
       title, shortcuts and chips in Karbon
-- [ ] `scripts/package.sh`, upload `dist/navica-keys-0.7.0.zip`, fill the listing and Privacy
+- [ ] `scripts/package.sh`, upload `dist/navica-keys-0.9.0.zip`, fill the listing and Privacy
       tab from this file, submit for review
 - [ ] After approval: add the store URL to the tools page (`navica-marketing`) so the button
       replaces "Coming soon"
@@ -146,6 +146,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.9.0 | 2026-11-12 | New email, note and work are now one key each on any Karbon page: Shift+E, Shift+N and Shift+K. They replace the `+` then letter menu shortcuts (Karbon's own Alt+C and Ctrl+Alt+T still cover Contact and Time Entry). | Draft |
 | 0.8.0 | 2026-11-12 | Create new shortcuts: `+` opens Karbon's Create new menu from any Karbon page, then E/N/W/C/T picks Email, Note, Work, Contact or Time Entry, with key chips in the menu. Settings now warn when a key is a common Chrome shortcut. Clear (archive) is now E, the archive key in Gmail and Outlook, instead of # (which deletes in Gmail); if you never changed the Clear key, it moves to E automatically. | Draft |
 | 0.7.1 | 2026-11-12 | Key chips show each key in its own box (Alt and W side by side, no "+"), like Karbon's own tooltips, with a clearer outline. | Draft |
 | 0.7.0 | 2026-11-12 | Renamed to Navica Keys for Karbon, listed as beta. New icon. Store listing, screenshots, privacy policy, and homepage link. | Draft |

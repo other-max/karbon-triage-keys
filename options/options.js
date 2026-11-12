@@ -101,7 +101,7 @@ function buildGroups() {
     note.className = 'muted';
     note.textContent = {
       triage: 'Work in Triage, Later, Cleared and other email lists, when you’re not typing.',
-      create: 'Work while Karbon’s Create new (+) menu is open. Open it with the Create new key above, then press one of these.',
+      create: 'Work on any Karbon page, when you’re not typing. Each one opens Karbon’s Create new (+) menu and picks the item for you.',
       dialog: 'Work while the Add to Timeline dialog is open, even while typing in its search box.',
     }[group];
 

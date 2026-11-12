@@ -106,9 +106,17 @@ function createItem(name) {
   return createMenuOpen() ? document.querySelector(SELECTORS.createItem(name)) : null;
 }
 
-function pressCreateItem(name) {
-  const item = createItem(name);
-  if (item) item.click();
+// Opens the menu if needed, then picks the item, so one key does both.
+async function createNew(name) {
+  let item = createItem(name);
+  if (!item) {
+    const button = toolbarButton(SELECTORS.createButton);
+    if (!button) return toast('Create new (+) button not found');
+    button.click();
+    item = await waitFor(() => createItem(name), 1500);
+  }
+  if (!item) return toast('Create new menu didn’t open');
+  item.click();
 }
 
 async function waitFor(find, timeout = 2000) {
@@ -212,16 +220,9 @@ const ACTION_HANDLERS = {
   replyAll: () => pressOpenEmailButton(SELECTORS.replyAllButton, 'Reply to All button not found'),
   forward: () => pressOpenEmailButton(SELECTORS.forwardButton, 'Forward button not found'),
   comment: () => pressOpenEmailButton(SELECTORS.commentButton, 'Comment button not found'),
-  createMenu: () => {
-    const button = toolbarButton(SELECTORS.createButton);
-    if (!button) return toast('Create new (+) button not found');
-    button.click();
-  },
-  newEmail: () => pressCreateItem('email'),
-  newNote: () => pressCreateItem('note'),
-  newWork: () => pressCreateItem('work'),
-  newContact: () => pressCreateItem('contact'),
-  newTimeEntry: () => pressCreateItem('time'),
+  newEmail: () => createNew('email'),
+  newNote: () => createNew('note'),
+  newWork: () => createNew('work'),
   toggleHelp: () => {
     const existing = document.querySelector('.ktk-help');
     if (existing) return existing.remove();
@@ -272,18 +273,16 @@ document.addEventListener('keydown', (event) => {
     return;
   }
 
-  // Create new (+) menu: one key picks an item. Other keys (arrows, Enter,
-  // Esc) are left to Karbon's menu.
-  if (createMenuOpen()) {
-    const action = findAction(binding, 'create');
-    if (action && !event.repeat) run(event, action);
-    return;
-  }
-
   if (event.repeat || isTyping(event)) return;
   if (document.querySelector(SELECTORS.dialog)) return; // another Karbon dialog is open
+
+  // Create new keys work on any page. While Karbon's + menu is open, other
+  // keys (arrows, Enter, Esc) are left to the menu.
+  const create = findAction(binding, 'create');
+  if (create) return run(event, create);
+  if (createMenuOpen()) return;
   const action = findAction(binding, 'triage');
-  if (action && (action.anywhere || onTriageList())) run(event, action);
+  if (action && onTriageList()) run(event, action);
 }, true);
 
 // ---------- on-screen hints ----------
@@ -311,9 +310,6 @@ const STYLE = `
 }
 .ktk-key--under .ktk-cap { min-width: 13px; padding: 0 3px; }
 .ktk-key--inline { margin: 0 0 0 6px; vertical-align: middle; }
-/* Create new menu: chip at the right edge, before Karbon's own Alt+C hint. */
-.ktk-key--menu { order: 1; margin-left: auto; }
-[role="menuitem"]:has(> .ktk-key--menu) > [data-slot="dropdown-menu-shortcut"] { order: 2; margin-left: 8px; }
 [data-e2e="button__splitButtonMainAction"] .ktk-cap { box-shadow: none; background: rgba(255,255,255,.22); color: rgba(255,255,255,.85); }
 
 .ktk-help-launch {
@@ -365,12 +361,6 @@ const HINT_TARGETS = {
   addToWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   addToNextWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   viewNew: [viewNewButton, 'inside', 'inline'],
-  createMenu: [() => toolbarButton(SELECTORS.createButton), 'after', 'toolbar'],
-  newEmail: [() => createItem('email'), 'inside', 'menu'],
-  newNote: [() => createItem('note'), 'inside', 'menu'],
-  newWork: [() => createItem('work'), 'inside', 'menu'],
-  newContact: [() => createItem('contact'), 'inside', 'menu'],
-  newTimeEntry: [() => createItem('time'), 'inside', 'menu'],
   workTab: [() => tabLabel(SELECTORS.workTab), 'inside', 'inline'],
   contactTab: [() => tabLabel(SELECTORS.contactTab), 'inside', 'inline'],
   dialogAdd: [() => document.querySelector(SELECTORS.workTab) && document.querySelector(SELECTORS.dialogAdd), 'inside', 'inline'],

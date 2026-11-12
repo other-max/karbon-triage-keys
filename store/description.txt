@@ -4,11 +4,12 @@ Navica Keys for Karbon adds single-key shortcuts to Karbon's Triage inbox. Clear
 
 WHAT IT DOES
 
-• Clear with #. The open email is cleared and Karbon moves you to the next one.
+• Clear with E. The open email is cleared and Karbon moves you to the next one.
 • Add to My Week with W. Choose whether W plans for this week or next week.
 • File to a timeline with T. Add to Timeline opens with the search ready. Type the work item, then press Ctrl+Enter to add it. Esc cancels.
 • Switch tabs while you type. In Add to Timeline, Alt+Shift+W and Alt+Shift+C move between the Work and Contact tabs without leaving the search box.
 • Comment with C, and view new triage items with N.
+• Start something new from any Karbon page: Shift+E for a new email, Shift+N for a new note, Shift+K for new work.
 • Turn on more when you're ready: next and previous email (J and K), Reply to All (R), Reply (Shift+R), Forward (F), Save to Later (L), Add Reminder (B), and Assign (A).
 • See every shortcut with ?. The list shows the shortcuts you've turned on, plus Karbon's own built-in keys.
 • Key hints on the page. Small chips under Karbon's toolbar buttons and beside Add to My Week show each key. Choose Karbon's gray style or high contrast, or turn hints off.

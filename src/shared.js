@@ -9,9 +9,9 @@
 (() => {
   const ACTIONS = [
     // group: 'triage' fires when not typing and no Karbon dialog is open.
-    //        'create' fires while Karbon's Create new (+) menu is open.
+    //        'create' fires like 'triage' but on any Karbon page, and also while
+    //        Karbon's Create new (+) menu is open.
     //        'dialog' fires inside the Add to Timeline dialog, even while typing.
-    // anywhere: a 'triage' action that also works off the email lists.
     // hint:  whether the action has an on-screen chip.
     // fixed: Karbon's own key; can't be rebound or turned off, only its chip.
     { id: 'clear', short: 'Clear', group: 'triage', label: 'Clear (archive) the open email', binding: 'e', enabled: true, hint: true },
@@ -28,14 +28,11 @@
     { id: 'reply', short: 'Reply', group: 'triage', label: 'Reply', binding: 'R', enabled: false, hint: true },
     { id: 'replyAll', short: 'Reply All', group: 'triage', label: 'Reply to All', binding: 'r', enabled: false, hint: true },
     { id: 'forward', short: 'Forward', group: 'triage', label: 'Forward', binding: 'f', enabled: false, hint: true },
-    { id: 'createMenu', short: 'Create new', group: 'triage', label: 'Open the Create new (+) menu', note: 'Works on any Karbon page. Then press a key below to pick an item.', binding: '+', enabled: true, hint: true, anywhere: true },
     { id: 'toggleHelp', short: 'This list', group: 'triage', label: 'Show the shortcut list', binding: '?', enabled: true, hint: false },
-    // The Create new letters match Karbon's own Alt+E/N/W/C and Alt+T.
-    { id: 'newEmail', short: 'Email', group: 'create', label: 'New email', binding: 'e', enabled: true, hint: true },
-    { id: 'newNote', short: 'Note', group: 'create', label: 'New note', binding: 'n', enabled: true, hint: true },
-    { id: 'newWork', short: 'Work', group: 'create', label: 'New work', binding: 'w', enabled: true, hint: true },
-    { id: 'newContact', short: 'Contact', group: 'create', label: 'New contact', binding: 'c', enabled: true, hint: true },
-    { id: 'newTimeEntry', short: 'Time Entry', group: 'create', label: 'New time entry', binding: 't', enabled: true, hint: true },
+    // Shift + the letter of Karbon's own Alt key, except Work: Shift+W is My Week: next.
+    { id: 'newEmail', short: 'New email', group: 'create', label: 'New email', binding: 'E', enabled: true, hint: false },
+    { id: 'newNote', short: 'New note', group: 'create', label: 'New note', binding: 'N', enabled: true, hint: false },
+    { id: 'newWork', short: 'New work', group: 'create', label: 'New work', binding: 'K', enabled: true, hint: false },
     { id: 'workTab', short: 'Work tab', group: 'dialog', label: 'Switch to the Work tab', binding: 'Alt+Shift+w', enabled: true, hint: true },
     { id: 'contactTab', short: 'Contact tab', group: 'dialog', label: 'Switch to the Contact tab', binding: 'Alt+Shift+c', enabled: true, hint: true },
     { id: 'dialogAdd', short: 'Add', group: 'dialog', label: 'Add', binding: 'Ctrl+Enter', enabled: true, hint: true },
@@ -44,7 +41,7 @@
 
   const GROUPS = {
     triage: 'Triage',
-    create: 'Create new menu',
+    create: 'Create new',
     dialog: 'Add to Timeline dialog',
   };
 
@@ -74,11 +71,17 @@
 
   // Defaults that changed: a saved binding still equal to the old default
   // moves to the new one (so people who never changed it get the fix).
-  const SETTINGS_VERSION = 3;
+  // A migration is { id: [oldDefault, newDefault] } or a function of the settings.
+  const SETTINGS_VERSION = 4;
   const MIGRATIONS = {
     2: { reply: ['r', 'R'], replyAll: ['R', 'r'], workTab: ['Alt+w', 'Alt+Shift+w'], contactTab: ['Alt+c', 'Alt+Shift+c'] },
     // E archives in Gmail, Outlook and Superhuman; # deletes in Gmail.
     3: { clear: ['#', 'e'] },
+    // The + menu cascade became direct Shift+E/N/K keys; old menu-only
+    // settings for these ids don't carry over.
+    4: (s) => {
+      for (const id of ['createMenu', 'newEmail', 'newNote', 'newWork', 'newContact', 'newTimeEntry']) delete s.shortcuts?.[id];
+    },
   };
 
   const DEFAULTS = {
@@ -164,7 +167,9 @@
   function migrate(stored) {
     const s = structuredClone(stored);
     for (let v = (s.version ?? 1) + 1; v <= SETTINGS_VERSION; v++) {
-      for (const [id, [from, to]] of Object.entries(MIGRATIONS[v] ?? {})) {
+      const m = MIGRATIONS[v] ?? {};
+      if (typeof m === 'function') { m(s); continue; }
+      for (const [id, [from, to]] of Object.entries(m)) {
         if (s.shortcuts?.[id]?.binding === from) s.shortcuts[id].binding = to;
       }
     }
@@ -207,6 +212,9 @@
     });
   }
 
+  // Triage and Create new keys listen at the same time, so they can clash.
+  const context = (a) => (a.group === 'dialog' ? 'dialog' : 'page');
+
   // Problems with the current bindings, keyed by action id:
   // { level: 'error' | 'warning' | 'info', message }
   function findConflicts(settings) {
@@ -217,7 +225,7 @@
     for (const a of enabled) {
       const binding = settings.shortcuts[a.id].binding;
       for (const b of enabled) {
-        if (a === b || a.group !== b.group || settings.shortcuts[b.id].binding !== binding) continue;
+        if (a === b || context(a) !== context(b) || settings.shortcuts[b.id].binding !== binding) continue;
         add(a.id, 'error', `Same key as “${b.label}”. Only one of them will work.`);
       }
       const karbon = KARBON_SHORTCUTS.find(([k]) => k === binding);
@@ -234,7 +242,7 @@
       if (!karbon && BROWSER_SHORTCUTS.has(asCtrl)) {
         add(a.id, 'warning', `${formatBinding(binding)} is a Chrome shortcut; this takes it over in Karbon.`);
       }
-      if (a.group === 'triage' && ['Enter', 'Space', 'Tab', 'Escape'].includes(binding)) {
+      if (context(a) === 'page' && ['Enter', 'Space', 'Tab', 'Escape'].includes(binding)) {
         add(a.id, 'warning', `${formatBinding(binding)} is used for normal navigation; this will take it over in the list.`);
       }
     }

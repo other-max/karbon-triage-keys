@@ -20,7 +20,7 @@ Chrome extension (Manifest V3, no build step) that adds keyboard shortcuts and o
 - Toolbar hint chips float in a fixed `.ktk-layer` centred under each icon so Karbon's toolbar layout is never changed. Chips on links and text buttons sit inline beside them. Each chip is a row of key boxes (`.ktk-cap`), one per key with no `+`, like Karbon's own tooltips; the boxes use Karbon's Help modal colours (`#e6e6e6`, Metric font) with a faint outline. `formatBinding` (`Alt + W`) is only for plain-text messages.
 - "Add to My Week: next week" adds the email, then picks `button__listItem__week-1` from the This Week picker. Karbon re-renders the side tray after the save, so it waits and retries.
 - Default keys must not clash with Karbon's built-ins (`Ctrl+K`, `Alt+S/E/N/W/C/T`, `Ctrl+Alt+T`) or common Chrome keys (`BROWSER_SHORTCUTS`). Prefer single keys, then Alt. R is Reply to All and Shift+R is Reply.
-- `+` opens Karbon's Create new menu on any page (`anywhere: true`); while it's open, the `create` group's E/N/W/C/T pick an item, mirroring Karbon's Alt letters so they can reuse keys taken in the triage group.
+- The `create` group (Shift+E/N/K: new email, note, work) works on any Karbon page: each opens Karbon's Create new (+) menu and clicks the item. It shares the page with the triage group, so `findConflicts` checks the two together. Work is K because Shift+W is My Week: next week.
 
 ## Testing
 
