@@ -16,10 +16,11 @@ const I = {
   comment: 'M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z',
 };
 
-// Settings for a shot: the defaults, with extra shortcuts turned on by id.
-function shotSettings(on = []) {
+// Settings for a shot: the defaults, with extra shortcuts turned on (data-on) or hints hidden (data-off) by id.
+function shotSettings(on = [], off = []) {
   const s = structuredClone(DEFAULTS);
   for (const id of on) s.shortcuts[id].enabled = true;
+  for (const id of off) s.shortcuts[id].hint = false;
   return s;
 }
 const chipText = (s, id) => formatBinding(s.shortcuts[id].binding);
@@ -91,7 +92,8 @@ async function build() {
   document.head.prepend(style);
   for (const b of document.querySelectorAll('.browser')) {
     const d = b.dataset;
-    const s = shotSettings((d.on || '').split(' ').filter(Boolean));
+    const ids = (v) => (v || '').split(' ').filter(Boolean);
+    const s = shotSettings(ids(d.on), ids(d.off));
     const scene = d.scene === 'triage' ? triage(s) + (d.overlay === 'help' ? helpOverlay(s) : d.overlay === 'dialog' ? timelineDialog(s) : '') : '';
     const extra = b.innerHTML;
     b.innerHTML = `
@@ -102,11 +104,12 @@ async function build() {
         <div class="ext"><img src="${ICON}" alt=""></div>${svg('M12 5h.01M12 12h.01M12 19h.01')}</div>
       <div class="viewport">${scene}${extra}</div>`;
   }
-  // The settings shot can start scrolled to a section: <iframe data-scroll-to="#groups">.
+  // The settings shot can start at a section: <iframe data-scroll-to="#groups">. It shifts the page
+  // up rather than scrolling, since headless Chrome leaves part of a scrolled iframe unpainted.
   for (const f of document.querySelectorAll('iframe[data-scroll-to]')) {
     f.addEventListener('load', () => setTimeout(() => {
       const el = f.contentDocument.querySelector(f.dataset.scrollTo);
-      if (el) f.contentWindow.scrollTo(0, el.getBoundingClientRect().top + f.contentWindow.scrollY - 24);
+      if (el) f.contentDocument.body.style.marginTop = `${-(el.getBoundingClientRect().top - 24)}px`;
     }, 400));
   }
 }
