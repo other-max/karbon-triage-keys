@@ -9,9 +9,9 @@ the internal `ktk` prefixes keep the old name, since users never see them).
 ## Store Listing
 
 **Extension Name**
-Navica Keys for Karbon Beta
+Navica Keys for Karbon (beta)
 
-From the manifest `name` (27 of 75 characters). Kept general, not tied to Triage, since shortcuts will grow beyond the Triage inbox. Drop " Beta" from the name once the extension leaves beta. `short_name` is "Navica Keys". "Karbon" comes
+From the manifest `name` (29 of 75 characters). Kept general, not tied to Triage, since shortcuts will grow beyond the Triage inbox. Drop " (beta)" from the name once the extension leaves beta. `short_name` is "Navica Keys". "Karbon" comes
 after "for", never first, since it's Karbon's trademark.
 
 **Short Description**
@@ -146,7 +146,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 0.9.2 | 2026-11-12 | Store name is now "Navica Keys for Karbon Beta", without the Triage tagline, since shortcuts will cover more than Triage. | Draft |
+| 0.9.2 | 2026-11-12 | Store name is now "Navica Keys for Karbon (beta)", without the Triage tagline, since shortcuts will cover more than Triage. | Draft |
 | 0.9.1 | 2026-11-12 | New email, New note and New work in Karbon's + menu show their Shift+E/N/K key chips again, next to Karbon's own Alt key. | Draft |
 | 0.9.0 | 2026-11-12 | New email, note and work are now one key each on any Karbon page: Shift+E, Shift+N and Shift+K. They replace the `+` then letter menu shortcuts (Karbon's own Alt+C and Ctrl+Alt+T still cover Contact and Time Entry). | Draft |
 | 0.8.0 | 2026-11-12 | Create new shortcuts: `+` opens Karbon's Create new menu from any Karbon page, then E/N/W/C/T picks Email, Note, Work, Contact or Time Entry, with key chips in the menu. Settings now warn when a key is a common Chrome shortcut. Clear (archive) is now E, the archive key in Gmail and Outlook, instead of # (which deletes in Gmail); if you never changed the Clear key, it moves to E automatically. | Draft |
