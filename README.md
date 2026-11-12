@@ -11,13 +11,14 @@ Default shortcuts (all changeable in Settings):
 | `t` | Open "Add to Timeline" (the briefcase) for the open email |
 | `n` | View new triage items (when Karbon shows the button) |
 | `c` | Add a comment to the open email |
+| `+` | Open Karbon's Create new (+) menu, on any Karbon page. Then `e` Email, `n` Note, `w` Work, `c` Contact, `t` Time Entry (the same letters as Karbon's own Alt keys) |
 | `?` | Show the shortcut list (also lists Karbon's built-in keys) |
 | `Alt + Shift + W` / `Alt + Shift + C` | In the Add to Timeline dialog: Work / Contact tab (works while typing) |
 | `Ctrl + Enter` | In the Add to Timeline dialog: Add (`Esc` cancels, natively) |
 
 Off by default, ready to turn on: next week (`Shift + W`), next/previous email (`j`/`k`), Save to Later (`l`), Add Reminder (`b`), Assign (`a`), Reply to All (`r`), Reply (`Shift + R`), Forward (`f`).
 
-None of the defaults use Karbon's own keys (`Ctrl + K`, `Alt + S/E/N/W/C/T`, `Ctrl + Alt + T`). Shortcuts work in any email list (Triage, Later, Cleared, ...), are ignored while you're typing, and pause while a Karbon dialog is open (except the dialog's own keys).
+None of the defaults use Karbon's own keys (`Ctrl + K`, `Alt + S/E/N/W/C/T`, `Ctrl + Alt + T`) or common Chrome keys; the settings page warns if you pick one. Shortcuts work in any email list (Triage, Later, Cleared, ...), are ignored while you're typing, and pause while a Karbon dialog is open (except the dialog's own keys).
 
 ## Settings
 
@@ -30,7 +31,7 @@ Click the extension's toolbar icon, or "Change shortcuts" at the bottom of the `
 
 Settings sync across your Chrome profiles.
 
-**On-screen hints:** key chips styled like the Shortcuts row in Karbon's Help modal sit centred under the open email's toolbar icons (in a floating layer, so Karbon's toolbar layout is untouched), and beside Add to My Week, View New Triage Items, and the Add to Timeline dialog's tabs and buttons.
+**On-screen hints:** key chips styled like the Shortcuts row in Karbon's Help modal sit centred under the open email's toolbar icons (in a floating layer, so Karbon's toolbar layout is untouched), and beside Add to My Week, View New Triage Items, the Create new menu's items, and the Add to Timeline dialog's tabs and buttons.
 
 ## Install (unpacked)
 

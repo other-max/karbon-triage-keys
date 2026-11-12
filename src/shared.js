@@ -9,7 +9,9 @@
 (() => {
   const ACTIONS = [
     // group: 'triage' fires when not typing and no Karbon dialog is open.
+    //        'create' fires while Karbon's Create new (+) menu is open.
     //        'dialog' fires inside the Add to Timeline dialog, even while typing.
+    // anywhere: a 'triage' action that also works off the email lists.
     // hint:  whether the action has an on-screen chip.
     // fixed: Karbon's own key; can't be rebound or turned off, only its chip.
     { id: 'clear', short: 'Clear', group: 'triage', label: 'Clear (archive) the open email', binding: '#', enabled: true, hint: true },
@@ -26,7 +28,14 @@
     { id: 'reply', short: 'Reply', group: 'triage', label: 'Reply', binding: 'R', enabled: false, hint: true },
     { id: 'replyAll', short: 'Reply All', group: 'triage', label: 'Reply to All', binding: 'r', enabled: false, hint: true },
     { id: 'forward', short: 'Forward', group: 'triage', label: 'Forward', binding: 'f', enabled: false, hint: true },
+    { id: 'createMenu', short: 'Create new', group: 'triage', label: 'Open the Create new (+) menu', note: 'Works on any Karbon page. Then press a key below to pick an item.', binding: '+', enabled: true, hint: true, anywhere: true },
     { id: 'toggleHelp', short: 'This list', group: 'triage', label: 'Show the shortcut list', binding: '?', enabled: true, hint: false },
+    // The Create new letters match Karbon's own Alt+E/N/W/C and Alt+T.
+    { id: 'newEmail', short: 'Email', group: 'create', label: 'New email', binding: 'e', enabled: true, hint: true },
+    { id: 'newNote', short: 'Note', group: 'create', label: 'New note', binding: 'n', enabled: true, hint: true },
+    { id: 'newWork', short: 'Work', group: 'create', label: 'New work', binding: 'w', enabled: true, hint: true },
+    { id: 'newContact', short: 'Contact', group: 'create', label: 'New contact', binding: 'c', enabled: true, hint: true },
+    { id: 'newTimeEntry', short: 'Time Entry', group: 'create', label: 'New time entry', binding: 't', enabled: true, hint: true },
     { id: 'workTab', short: 'Work tab', group: 'dialog', label: 'Switch to the Work tab', binding: 'Alt+Shift+w', enabled: true, hint: true },
     { id: 'contactTab', short: 'Contact tab', group: 'dialog', label: 'Switch to the Contact tab', binding: 'Alt+Shift+c', enabled: true, hint: true },
     { id: 'dialogAdd', short: 'Add', group: 'dialog', label: 'Add', binding: 'Ctrl+Enter', enabled: true, hint: true },
@@ -35,6 +44,7 @@
 
   const GROUPS = {
     triage: 'Triage',
+    create: 'Create new menu',
     dialog: 'Add to Timeline dialog',
   };
 
@@ -49,6 +59,18 @@
     ['Alt+t', 'Timer'],
     ['Ctrl+Alt+t', 'New time entry'],
   ];
+
+  // Common Chrome shortcuts a page shouldn't take over. Cmd on a Mac is
+  // checked as Ctrl. Alt+1–8 switch tabs in Chrome on Linux.
+  const BROWSER_SHORTCUTS = new Set([
+    ...'tnwrlfpshjdoug'.split('').map((k) => `Ctrl+${k}`),
+    ...'tnwbjio'.split('').map((k) => `Ctrl+Shift+${k}`),
+    ...'123456789'.split('').map((k) => `Ctrl+${k}`),
+    ...'12345678'.split('').map((k) => `Alt+${k}`),
+    'Ctrl+Tab', 'Ctrl+Shift+Tab', 'Ctrl+Shift+Delete', 'Ctrl+=', 'Ctrl+-', 'Ctrl+0',
+    'Alt+d', 'Alt+e', 'Alt+f', 'Alt+ArrowLeft', 'Alt+ArrowRight', 'Alt+Home',
+    'F1', 'F3', 'F5', 'F6', 'F11', 'F12', 'Ctrl+F5', 'Shift+F5',
+  ]);
 
   const DEFAULTS = {
     version: 2,
@@ -108,7 +130,7 @@
   function bindingKeys(binding) {
     if (!binding) return [];
     // Split on "+" but keep a literal "+" key ("Ctrl++" -> ["Ctrl", "+"]).
-    const parts = binding.endsWith('++')
+    const parts = binding === '+' ? ['+'] : binding.endsWith('++')
       ? [...binding.slice(0, -2).split('+'), '+']
       : binding.split('+');
     const key = parts.pop();
@@ -205,6 +227,10 @@
             ? `Takes over Karbon’s ${formatBinding(binding)} (${karbon[1]}) while the dialog is open.`
             : `Takes over Karbon’s ${formatBinding(binding)} (${karbon[1]}).`
         );
+      }
+      const asCtrl = binding.replace(/^Meta\+/, 'Ctrl+');
+      if (!karbon && BROWSER_SHORTCUTS.has(asCtrl)) {
+        add(a.id, 'warning', `${formatBinding(binding)} is a Chrome shortcut; this takes it over in Karbon.`);
       }
       if (a.group === 'triage' && ['Enter', 'Space', 'Tab', 'Escape'].includes(binding)) {
         add(a.id, 'warning', `${formatBinding(binding)} is used for normal navigation; this will take it over in the list.`);

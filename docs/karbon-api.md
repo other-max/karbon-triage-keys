@@ -30,6 +30,10 @@ UI only: after adding, the side tray shows a "This Week ⌄" picker (`[data-e2e=
 
 UI only: row button `khq-button[data-e2e="triage-item-add-to-work"]` (briefcase, title "Add to Work") opens the "Add to Timeline" dialog with the work search focused. You pick the work item and press Add. The request it sends wasn't recorded.
 
+## Create new menu (`+`)
+
+UI only: the top bar's `button[data-e2e="global-nav-bar__addButton"]` (aria-label "Add") opens a Base UI dropdown; while it's open the button has `aria-expanded="true"`. Items are `[role="menuitem"]` with `data-e2e="global-nav-bar__email"`, `__note`, `__work`, `__contact` and `__time`; a plain `.click()` works and closes the menu. Note opens a full-pane composer (`?new=note`) with a Discard button.
+
 ## Which row is in focus
 
 The row open in the reading pane has an inner `[role=button]` with class `khq-bg-sentiment-action-tint`.

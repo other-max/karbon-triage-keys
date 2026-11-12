@@ -3,9 +3,9 @@
 Allows https://app2.karbonhq.com to fetch shared.js and content.js from
 http://127.0.0.1:8765/ with caching off.
 
-Usage: python3 tools/serve-src.py
+Usage: python3 tools/serve-src.py [port]   (default 8765)
 """
-import http.server, os, socketserver
+import http.server, os, socketserver, sys
 
 SRC = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src')
 
@@ -21,4 +21,5 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 socketserver.TCPServer.allow_reuse_address = True
-socketserver.TCPServer(('127.0.0.1', 8765), Handler).serve_forever()
+PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8765
+socketserver.TCPServer(('127.0.0.1', PORT), Handler).serve_forever()

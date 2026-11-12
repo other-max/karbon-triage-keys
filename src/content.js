@@ -31,6 +31,9 @@ const SELECTORS = {
   contactTab: '[role="dialog"] [data-e2e="tab__contact"]',
   tabLabel: '[class*="tab-label"]',
   dialogAdd: '[role="dialog"] [data-e2e="button__splitButtonMainAction"]',
+  createButton: '[data-e2e="global-nav-bar__addButton"]',
+  createMenuOpen: '[data-e2e="global-nav-bar__addButton"][aria-expanded="true"]',
+  createItem: (name) => `[role="menuitem"][data-e2e="global-nav-bar__${name}"]`,
 };
 
 // ---------- finding Karbon's controls ----------
@@ -92,6 +95,20 @@ function press(el) {
   const target = el.matches('khq-button') ? el : el.querySelector('khq-button') ?? el;
   const inner = target.shadowRoot?.querySelector('button');
   (inner ?? target).click();
+}
+
+// Karbon's Create new (+) menu in the top bar.
+function createMenuOpen() {
+  return Boolean(document.querySelector(SELECTORS.createMenuOpen));
+}
+
+function createItem(name) {
+  return createMenuOpen() ? document.querySelector(SELECTORS.createItem(name)) : null;
+}
+
+function pressCreateItem(name) {
+  const item = createItem(name);
+  if (item) item.click();
 }
 
 async function waitFor(find, timeout = 2000) {
@@ -195,6 +212,16 @@ const ACTION_HANDLERS = {
   replyAll: () => pressOpenEmailButton(SELECTORS.replyAllButton, 'Reply to All button not found'),
   forward: () => pressOpenEmailButton(SELECTORS.forwardButton, 'Forward button not found'),
   comment: () => pressOpenEmailButton(SELECTORS.commentButton, 'Comment button not found'),
+  createMenu: () => {
+    const button = toolbarButton(SELECTORS.createButton);
+    if (!button) return toast('Create new (+) button not found');
+    button.click();
+  },
+  newEmail: () => pressCreateItem('email'),
+  newNote: () => pressCreateItem('note'),
+  newWork: () => pressCreateItem('work'),
+  newContact: () => pressCreateItem('contact'),
+  newTimeEntry: () => pressCreateItem('time'),
   toggleHelp: () => {
     const existing = document.querySelector('.ktk-help');
     if (existing) return existing.remove();
@@ -245,10 +272,18 @@ document.addEventListener('keydown', (event) => {
     return;
   }
 
-  if (event.repeat || !onTriageList() || isTyping(event)) return;
+  // Create new (+) menu: one key picks an item. Other keys (arrows, Enter,
+  // Esc) are left to Karbon's menu.
+  if (createMenuOpen()) {
+    const action = findAction(binding, 'create');
+    if (action && !event.repeat) run(event, action);
+    return;
+  }
+
+  if (event.repeat || isTyping(event)) return;
   if (document.querySelector(SELECTORS.dialog)) return; // another Karbon dialog is open
   const action = findAction(binding, 'triage');
-  if (action) run(event, action);
+  if (action && (action.anywhere || onTriageList())) run(event, action);
 }, true);
 
 // ---------- on-screen hints ----------
@@ -276,6 +311,9 @@ const STYLE = `
 }
 .ktk-key--under .ktk-cap { min-width: 13px; padding: 0 3px; }
 .ktk-key--inline { margin: 0 0 0 6px; vertical-align: middle; }
+/* Create new menu: chip at the right edge, before Karbon's own Alt+C hint. */
+.ktk-key--menu { order: 1; margin-left: auto; }
+[role="menuitem"]:has(> .ktk-key--menu) > [data-slot="dropdown-menu-shortcut"] { order: 2; margin-left: 8px; }
 [data-e2e="button__splitButtonMainAction"] .ktk-cap { box-shadow: none; background: rgba(255,255,255,.22); color: rgba(255,255,255,.85); }
 
 .ktk-help-launch {
@@ -327,6 +365,12 @@ const HINT_TARGETS = {
   addToWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   addToNextWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   viewNew: [viewNewButton, 'inside', 'inline'],
+  createMenu: [() => toolbarButton(SELECTORS.createButton), 'after', 'toolbar'],
+  newEmail: [() => createItem('email'), 'inside', 'menu'],
+  newNote: [() => createItem('note'), 'inside', 'menu'],
+  newWork: [() => createItem('work'), 'inside', 'menu'],
+  newContact: [() => createItem('contact'), 'inside', 'menu'],
+  newTimeEntry: [() => createItem('time'), 'inside', 'menu'],
   workTab: [() => tabLabel(SELECTORS.workTab), 'inside', 'inline'],
   contactTab: [() => tabLabel(SELECTORS.contactTab), 'inside', 'inline'],
   dialogAdd: [() => document.querySelector(SELECTORS.workTab) && document.querySelector(SELECTORS.dialogAdd), 'inside', 'inline'],
