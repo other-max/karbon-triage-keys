@@ -10,7 +10,7 @@ Status: personal tool, loaded unpacked. Not yet planned for publishing; this fil
 Karbon Triage Keys
 
 **Short Description**
-Keyboard shortcuts for Karbon's Triage inbox: press # to archive the open email, or a second key to add it to My Week.
+Keyboard shortcuts for Karbon's Triage inbox: clear, add to My Week, add to a timeline and view new items, with on-screen key hints.
 
 **Detailed Description**
 TBD once both shortcuts work.
@@ -19,7 +19,7 @@ TBD once both shortcuts work.
 Productivity
 
 **Single Purpose**
-Adds keyboard shortcuts for archiving emails and adding them to My Week in Karbon's Triage inbox.
+Adds keyboard shortcuts for clearing, planning (My Week) and filing (Add to Timeline) emails in Karbon's Triage inbox.
 
 **Primary Language**
 English
@@ -35,12 +35,11 @@ English
 
 | Permission | Type | Justification |
 |------------|------|---------------|
-| `https://app2.karbonhq.com/*` | host_permissions | Listens for the shortcut keys while you use Karbon and reads which email is open, so the shortcut acts on that email. |
-| `https://*.karbonhq.com/*` | host_permissions | Sends the archive and add-to-My-Week requests to Karbon's regional servers (for example us3.karbonhq.com) using your existing Karbon sign-in. |
+| `https://app2.karbonhq.com/*` | host_permissions | Listens for the shortcut keys while you use Karbon and presses Karbon's own Clear, Add to My Week, Add to Timeline or View New Triage Items button, and labels those buttons with their shortcut keys. |
 
 ## Privacy & Data Use
 
-**Does the extension collect user data?** No. It sends requests only to Karbon, on your behalf, when you press a shortcut. Nothing is stored or sent anywhere else.
+**Does the extension collect user data?** No. It only presses Karbon's own buttons when you press a shortcut. The only thing it stores is whether you've hidden the key hints, in your browser.
 
 ## Privacy Policy
 
@@ -51,4 +50,6 @@ TBD (only needed if published).
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 0.3.0 | 2026-11-12 | View new items (n), Work/Contact tab switch (Alt+W/Alt+C), on-screen key hints and ? cheat sheet; dropped the unused API host permission. |
+| 0.2.0 | 2026-11-12 | Working shortcuts: # Clear, w Add to My Week, t Add to Timeline. |
 | 0.1.0 | 2026-11-12 | Skeleton: `#` key handler with stubbed actions. |
