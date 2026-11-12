@@ -186,8 +186,11 @@ function renderShortcuts() {
     }
 
     const def = DEFAULTS.shortcuts[action.id];
-    row.querySelector('.default').hidden =
-      action.fixed || (s.binding === def.binding && s.enabled === def.enabled && s.hint === def.hint);
+    const reset = row.querySelector('.default');
+    reset.hidden = action.fixed || (s.binding === def.binding && s.enabled === def.enabled && s.hint === def.hint);
+    const defText = `${def.binding ? formatBinding(def.binding) : 'no key'}, ${def.enabled ? 'on' : 'off'}`;
+    reset.title = `Reset to default (${defText})`;
+    reset.setAttribute('aria-label', `Reset “${action.label}” to default (${defText})`);
 
     const list = row.querySelector('.issues');
     list.replaceChildren(...(issues[action.id] ?? []).map(({ level, message }) => {

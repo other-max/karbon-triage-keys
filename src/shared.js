@@ -22,12 +22,12 @@
     { id: 'saveToLater', short: 'Later', group: 'triage', label: 'Save to Later', binding: 'l', enabled: false, hint: true },
     { id: 'reminder', short: 'Reminder', group: 'triage', label: 'Add Reminder', binding: 'b', enabled: false, hint: true },
     { id: 'assign', short: 'Assign', group: 'triage', label: 'Assign to Colleague', binding: 'a', enabled: false, hint: true },
-    { id: 'reply', short: 'Reply', group: 'triage', label: 'Reply', binding: 'r', enabled: false, hint: true },
-    { id: 'replyAll', short: 'Reply All', group: 'triage', label: 'Reply to All', binding: 'R', enabled: false, hint: true },
+    { id: 'reply', short: 'Reply', group: 'triage', label: 'Reply', binding: 'R', enabled: false, hint: true },
+    { id: 'replyAll', short: 'Reply All', group: 'triage', label: 'Reply to All', binding: 'r', enabled: false, hint: true },
     { id: 'forward', short: 'Forward', group: 'triage', label: 'Forward', binding: 'f', enabled: false, hint: true },
     { id: 'toggleHelp', short: 'This list', group: 'triage', label: 'Show the shortcut list', binding: '?', enabled: true, hint: false },
-    { id: 'workTab', short: 'Work tab', group: 'dialog', label: 'Switch to the Work tab', binding: 'Alt+w', enabled: true, hint: true },
-    { id: 'contactTab', short: 'Contact tab', group: 'dialog', label: 'Switch to the Contact tab', binding: 'Alt+c', enabled: true, hint: true },
+    { id: 'workTab', short: 'Work tab', group: 'dialog', label: 'Switch to the Work tab', binding: 'Alt+Shift+w', enabled: true, hint: true },
+    { id: 'contactTab', short: 'Contact tab', group: 'dialog', label: 'Switch to the Contact tab', binding: 'Alt+Shift+c', enabled: true, hint: true },
     { id: 'dialogAdd', short: 'Add', group: 'dialog', label: 'Add', binding: 'Ctrl+Enter', enabled: true, hint: true },
     { id: 'dialogCancel', short: 'Cancel', group: 'dialog', label: 'Cancel', binding: 'Escape', enabled: true, hint: true, fixed: true },
   ];
@@ -50,6 +50,7 @@
   ];
 
   const DEFAULTS = {
+    version: 2,
     shortcuts: Object.fromEntries(
       ACTIONS.map((a) => [a.id, { enabled: a.enabled, binding: a.binding, hint: a.hint }])
     ),
@@ -123,8 +124,26 @@
     return MODIFIERS.slice(0, 3).some((m) => binding.startsWith(`${m}+`));
   }
 
+  // Defaults that changed: a saved binding still equal to the old default
+  // moves to the new one (so people who never changed it get the fix).
+  const SETTINGS_VERSION = 2;
+  const MIGRATIONS = {
+    2: { reply: ['r', 'R'], replyAll: ['R', 'r'], workTab: ['Alt+w', 'Alt+Shift+w'], contactTab: ['Alt+c', 'Alt+Shift+c'] },
+  };
+
+  function migrate(stored) {
+    const s = structuredClone(stored);
+    for (let v = (s.version ?? 1) + 1; v <= SETTINGS_VERSION; v++) {
+      for (const [id, [from, to]] of Object.entries(MIGRATIONS[v] ?? {})) {
+        if (s.shortcuts?.[id]?.binding === from) s.shortcuts[id].binding = to;
+      }
+    }
+    s.version = SETTINGS_VERSION;
+    return s;
+  }
+
   function mergeSettings(stored) {
-    const s = stored ?? {};
+    const s = stored ? migrate(stored) : { version: SETTINGS_VERSION };
     const shortcuts = {};
     for (const action of ACTIONS) {
       const saved = s.shortcuts?.[action.id] ?? {};

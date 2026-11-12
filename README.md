@@ -11,12 +11,12 @@ Default shortcuts (all changeable in Settings):
 | `t` | Open "Add to Timeline" (the briefcase) for the open email |
 | `n` | View new triage items (when Karbon shows the button) |
 | `?` | Show the shortcut list (also lists Karbon's built-in keys) |
-| `Alt + W` / `Alt + C` | In the Add to Timeline dialog: Work / Contact tab (works while typing) |
+| `Alt + Shift + W` / `Alt + Shift + C` | In the Add to Timeline dialog: Work / Contact tab (works while typing) |
 | `Ctrl + Enter` | In the Add to Timeline dialog: Add (`Esc` cancels, natively) |
 
-Off by default, ready to turn on: next week (`Shift + W`), next/previous email (`j`/`k`), Save to Later (`l`), Add Reminder (`b`), Assign (`a`), Reply (`r`), Reply to All (`Shift + R`), Forward (`f`).
+Off by default, ready to turn on: next week (`Shift + W`), next/previous email (`j`/`k`), Save to Later (`l`), Add Reminder (`b`), Assign (`a`), Reply to All (`r`), Reply (`Shift + R`), Forward (`f`).
 
-Shortcuts work in any email list (Triage, Later, Cleared, ...), are ignored while you're typing, and pause while a Karbon dialog is open (except the dialog's own keys).
+None of the defaults use Karbon's own keys (`Ctrl + K`, `Alt + S/E/N/W/C/T`, `Ctrl + Alt + T`). Shortcuts work in any email list (Triage, Later, Cleared, ...), are ignored while you're typing, and pause while a Karbon dialog is open (except the dialog's own keys).
 
 ## Settings
 

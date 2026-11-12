@@ -336,6 +336,24 @@ function showsHint(id) {
   return settings.hintsEnabled && s.enabled && s.hint && Boolean(s.binding);
 }
 
+// Some controls (Reminder) sit inside block wrappers; a chip placed next to
+// them would wrap onto its own line. Climb to the element that is an item of
+// the toolbar's flex row (looking through display: contents wrappers).
+function flexItem(el) {
+  let item = el;
+  for (let i = 0; i < 5 && item.parentElement; i++) {
+    let container = item.parentElement;
+    let display = getComputedStyle(container).display;
+    while (display === 'contents' && container.parentElement) {
+      container = container.parentElement;
+      display = getComputedStyle(container).display;
+    }
+    if (/flex|grid/.test(display)) return item;
+    item = item.parentElement;
+  }
+  return el;
+}
+
 // Chips placed after a control sit in a run of siblings right after it.
 function chipRunAfter(target) {
   const run = [];
@@ -345,7 +363,8 @@ function chipRunAfter(target) {
 
 function placeChip(id) {
   const [find, placement, variant] = HINT_TARGETS[id];
-  const target = find();
+  const found = find();
+  const target = found && placement === 'after' ? flexItem(found) : found;
   const existing = document.querySelectorAll(`[data-ktk-for="${id}"]`);
   if (!target) return existing.forEach((el) => el.remove());
 
