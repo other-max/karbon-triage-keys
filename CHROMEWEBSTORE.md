@@ -146,7 +146,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 0.8.0 | 2026-11-12 | Create new shortcuts: `+` opens Karbon's Create new menu from any Karbon page, then E/N/W/C/T picks Email, Note, Work, Contact or Time Entry, with key chips in the menu. Settings now warn when a key is a common Chrome shortcut. | Draft |
+| 0.8.0 | 2026-11-12 | Create new shortcuts: `+` opens Karbon's Create new menu from any Karbon page, then E/N/W/C/T picks Email, Note, Work, Contact or Time Entry, with key chips in the menu. Settings now warn when a key is a common Chrome shortcut. Clear (archive) is now E, the archive key in Gmail and Outlook, instead of # (which deletes in Gmail); if you never changed the Clear key, it moves to E automatically. | Draft |
 | 0.7.1 | 2026-11-12 | Key chips show each key in its own box (Alt and W side by side, no "+"), like Karbon's own tooltips, with a clearer outline. | Draft |
 | 0.7.0 | 2026-11-12 | Renamed to Navica Keys for Karbon, listed as beta. New icon. Store listing, screenshots, privacy policy, and homepage link. | Draft |
 | 0.6.0 | 2026-11-12 | Toolbar key chips now sit centred under each icon without changing Karbon's layout. New Comment shortcut (c). Fixed the My Week chip landing at the bottom of the sidebar. | Unpublished |

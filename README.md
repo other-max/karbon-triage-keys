@@ -6,7 +6,7 @@ Default shortcuts (all changeable in Settings):
 
 | Key | Action |
 |-----|--------|
-| `#` | Clear (archive) the open email |
+| `e` | Clear (archive) the open email, as in Gmail and Outlook |
 | `w` | Add the open email to My Week (this or next week, per Settings) |
 | `t` | Open "Add to Timeline" (the briefcase) for the open email |
 | `n` | View new triage items (when Karbon shows the button) |

@@ -4,7 +4,7 @@ Recorded 2026-11-12 in the Triage split view. The extension doesn't call these i
 
 All requests go to the regional API host (`https://us3.karbonhq.com`), are authenticated by the signed-in session cookie, and carry `X-Karbon-Connection-Id`, `X-Karbon-Local-Time` and `X-PracticeIQ-Current-Route` headers. `{tenant}` is the tenant perma key from the app URL (`app2.karbonhq.com/{tenant}/triage`). `{id}` is the row's `data-triage-list-item-id`, which is the same as the email conversation perma key.
 
-## Clear (`#`)
+## Clear (`e`)
 
 `PUT /triage/api/{tenant}/triageItems/{id}`
 
