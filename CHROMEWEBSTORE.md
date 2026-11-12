@@ -56,7 +56,7 @@ shortcut list, and settings page are the extension's own styles, keys, and page)
 The Triage inbox in the shots is a plain mock (fictional firm and clients), not a capture of
 Karbon, so no client data or Karbon branding appears.
 
-1. Triage: the open email with key chips under Clear (#), Add to Timeline (T), and Comment (C),
+1. Triage: the open email with key chips under Clear (E), Add to Timeline (T), and Comment (C),
    plus N on View new items and W on Add to My Week.
 2. Shortcut list: the ? list over the inbox, with Karbon's built-in keys.
 3. Add to Timeline: dialog with Work/Contact tab chips, Esc on Cancel, Ctrl + Enter on Add.

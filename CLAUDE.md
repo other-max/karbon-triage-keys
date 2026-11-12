@@ -28,7 +28,7 @@ There are no automated tests. Check changes in the browser:
 
 - Both test servers take a port argument (`serve-src.py 8767`, `preview-options.py . 8769`) when 8765/8766 are taken by something else.
 - **Settings page:** run `tools/preview-options.py` (the `options-preview` entry in `.claude/launch.json`) and open `http://127.0.0.1:8766/options/options.html`. It fakes `chrome.storage` in memory (`window.__stubData`).
-- **In Karbon, without reloading the extension:** run `tools/serve-src.py` (port 8765), then in a Karbon tab use the page's JavaScript to fake `chrome.storage`/`chrome.runtime`, fetch `shared.js` and `content.js`, and `eval` each wrapped in `(() => { … })()`. If the installed extension is also running in that tab, rename `data-ktk-for`/`dataset.ktkFor`/`ktk-layer` in the injected source first. Otherwise the two copies fight over the same chips, and keys like `#` fire twice.
+- **In Karbon, without reloading the extension:** run `tools/serve-src.py` (port 8765), then in a Karbon tab use the page's JavaScript to fake `chrome.storage`/`chrome.runtime`, fetch `shared.js` and `content.js`, and `eval` each wrapped in `(() => { … })()`. If the installed extension is also running in that tab, rename `data-ktk-for`/`dataset.ktkFor`/`ktk-layer` in the injected source first. Otherwise the two copies fight over the same chips, and keys like `e` fire twice.
 - Browser automation's `shift+w` sends `key: "w"` with Shift held. To test Shift keys, dispatch a `KeyboardEvent` with the real `key` (`"W"`).
 - Use throwaway emails (marketing or notifications) for anything that changes Karbon data, and undo it afterwards (Remove from My Week, move out of Cleared).
 - After a change, Max reloads the extension on `chrome://extensions` and refreshes Karbon.
