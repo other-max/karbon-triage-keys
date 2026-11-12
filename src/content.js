@@ -310,6 +310,9 @@ const STYLE = `
 }
 .ktk-key--under .ktk-cap { min-width: 13px; padding: 0 3px; }
 .ktk-key--inline { margin: 0 0 0 6px; vertical-align: middle; }
+/* Create new (+) menu: chip at the right edge, before Karbon's own Alt hint. */
+.ktk-key--menu { order: 1; margin-left: auto; }
+[role="menuitem"]:has(> .ktk-key--menu) > [data-slot="dropdown-menu-shortcut"] { order: 2; margin-left: 8px; }
 [data-e2e="button__splitButtonMainAction"] .ktk-cap { box-shadow: none; background: rgba(255,255,255,.22); color: rgba(255,255,255,.85); }
 
 .ktk-help-launch {
@@ -361,6 +364,10 @@ const HINT_TARGETS = {
   addToWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   addToNextWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   viewNew: [viewNewButton, 'inside', 'inline'],
+  // Only there while Karbon's + menu is open; createItem() is null otherwise.
+  newEmail: [() => createItem('email'), 'inside', 'menu'],
+  newNote: [() => createItem('note'), 'inside', 'menu'],
+  newWork: [() => createItem('work'), 'inside', 'menu'],
   workTab: [() => tabLabel(SELECTORS.workTab), 'inside', 'inline'],
   contactTab: [() => tabLabel(SELECTORS.contactTab), 'inside', 'inline'],
   dialogAdd: [() => document.querySelector(SELECTORS.workTab) && document.querySelector(SELECTORS.dialogAdd), 'inside', 'inline'],

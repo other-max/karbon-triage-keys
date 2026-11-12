@@ -146,6 +146,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.9.1 | 2026-11-12 | New email, New note and New work in Karbon's + menu show their Shift+E/N/K key chips again, next to Karbon's own Alt key. | Draft |
 | 0.9.0 | 2026-11-12 | New email, note and work are now one key each on any Karbon page: Shift+E, Shift+N and Shift+K. They replace the `+` then letter menu shortcuts (Karbon's own Alt+C and Ctrl+Alt+T still cover Contact and Time Entry). | Draft |
 | 0.8.0 | 2026-11-12 | Create new shortcuts: `+` opens Karbon's Create new menu from any Karbon page, then E/N/W/C/T picks Email, Note, Work, Contact or Time Entry, with key chips in the menu. Settings now warn when a key is a common Chrome shortcut. Clear (archive) is now E, the archive key in Gmail and Outlook, instead of # (which deletes in Gmail); if you never changed the Clear key, it moves to E automatically. | Draft |
 | 0.7.1 | 2026-11-12 | Key chips show each key in its own box (Alt and W side by side, no "+"), like Karbon's own tooltips, with a clearer outline. | Draft |

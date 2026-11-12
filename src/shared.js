@@ -30,9 +30,9 @@
     { id: 'forward', short: 'Forward', group: 'triage', label: 'Forward', binding: 'f', enabled: false, hint: true },
     { id: 'toggleHelp', short: 'This list', group: 'triage', label: 'Show the shortcut list', binding: '?', enabled: true, hint: false },
     // Shift + the letter of Karbon's own Alt key, except Work: Shift+W is My Week: next.
-    { id: 'newEmail', short: 'New email', group: 'create', label: 'New email', binding: 'E', enabled: true, hint: false },
-    { id: 'newNote', short: 'New note', group: 'create', label: 'New note', binding: 'N', enabled: true, hint: false },
-    { id: 'newWork', short: 'New work', group: 'create', label: 'New work', binding: 'K', enabled: true, hint: false },
+    { id: 'newEmail', short: 'New email', group: 'create', label: 'New email', binding: 'E', enabled: true, hint: true },
+    { id: 'newNote', short: 'New note', group: 'create', label: 'New note', binding: 'N', enabled: true, hint: true },
+    { id: 'newWork', short: 'New work', group: 'create', label: 'New work', binding: 'K', enabled: true, hint: true },
     { id: 'workTab', short: 'Work tab', group: 'dialog', label: 'Switch to the Work tab', binding: 'Alt+Shift+w', enabled: true, hint: true },
     { id: 'contactTab', short: 'Contact tab', group: 'dialog', label: 'Switch to the Contact tab', binding: 'Alt+Shift+c', enabled: true, hint: true },
     { id: 'dialogAdd', short: 'Add', group: 'dialog', label: 'Add', binding: 'Ctrl+Enter', enabled: true, hint: true },
@@ -72,7 +72,7 @@
   // Defaults that changed: a saved binding still equal to the old default
   // moves to the new one (so people who never changed it get the fix).
   // A migration is { id: [oldDefault, newDefault] } or a function of the settings.
-  const SETTINGS_VERSION = 4;
+  const SETTINGS_VERSION = 5;
   const MIGRATIONS = {
     2: { reply: ['r', 'R'], replyAll: ['R', 'r'], workTab: ['Alt+w', 'Alt+Shift+w'], contactTab: ['Alt+c', 'Alt+Shift+c'] },
     // E archives in Gmail, Outlook and Superhuman; # deletes in Gmail.
@@ -81,6 +81,10 @@
     // settings for these ids don't carry over.
     4: (s) => {
       for (const id of ['createMenu', 'newEmail', 'newNote', 'newWork', 'newContact', 'newTimeEntry']) delete s.shortcuts?.[id];
+    },
+    // 0.9.1: New email/note/work chips are back in the + menu.
+    5: (s) => {
+      for (const id of ['newEmail', 'newNote', 'newWork']) if (s.shortcuts?.[id]) s.shortcuts[id].hint = true;
     },
   };
 
