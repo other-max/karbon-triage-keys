@@ -8,6 +8,9 @@ the internal `ktk` prefixes keep the old name, since users never see them).
 
 ## Store Listing
 
+**Item ID**
+cgbfffanamhgebmphjdnjhlfbbchjcjp (store URL once published: https://chromewebstore.google.com/detail/cgbfffanamhgebmphjdnjhlfbbchjcjp)
+
 **Extension Name**
 Navica Keys for Karbon (beta)
 
