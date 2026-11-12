@@ -22,6 +22,7 @@ const SELECTORS = {
   replyButton: '[data-e2e="button__triageStickyMenu__replyAction"]',
   replyAllButton: '[data-e2e="button__triageStickyMenu__replyToAllAction"]',
   forwardButton: '[data-e2e="button__triageStickyMenu__forwardAction"]',
+  commentButton: 'khq-button[icon="comment"]',
   addToWeekButton: '[data-e2e="button__emailSideTray__planForThisWeek"]',
   removeFromWeekButton: '[data-e2e="button__emailSideTray__removeFromMyWeek"]',
   weekOption: (n) => `[data-e2e="button__listItem__week-${n}"]`,
@@ -193,6 +194,7 @@ const ACTION_HANDLERS = {
   reply: () => pressOpenEmailButton(SELECTORS.replyButton, 'Reply button not found'),
   replyAll: () => pressOpenEmailButton(SELECTORS.replyAllButton, 'Reply to All button not found'),
   forward: () => pressOpenEmailButton(SELECTORS.forwardButton, 'Forward button not found'),
+  comment: () => pressOpenEmailButton(SELECTORS.commentButton, 'Comment button not found'),
   toggleHelp: () => {
     const existing = document.querySelector('.ktk-help');
     if (existing) return existing.remove();
@@ -261,7 +263,13 @@ const STYLE = `
   white-space: nowrap; pointer-events: none;
 }
 .ktk-contrast .ktk-key { background: #4b5563; color: #fff; }
-.ktk-key--toolbar { margin: 0 6px 0 -2px; }
+/* Toolbar chips float in their own layer, centred just under each icon, so
+   Karbon's toolbar layout is never touched. Below Karbon's dialogs/menus. */
+.ktk-layer { position: fixed; inset: 0; pointer-events: none; z-index: 20; }
+.ktk-key--under {
+  position: fixed; transform: translateX(-50%);
+  padding: 0 4px; font-size: 10px; line-height: 12px;
+}
 .ktk-key--inline { margin: 0 0 0 6px; vertical-align: middle; }
 [data-e2e="button__splitButtonMainAction"] .ktk-key { background: rgba(255,255,255,.22); color: rgba(255,255,255,.85); }
 
@@ -309,6 +317,7 @@ const HINT_TARGETS = {
   reply: [() => toolbarButton(SELECTORS.replyButton), 'after', 'toolbar'],
   replyAll: [() => toolbarButton(SELECTORS.replyAllButton), 'after', 'toolbar'],
   forward: [() => toolbarButton(SELECTORS.forwardButton), 'after', 'toolbar'],
+  comment: [() => toolbarButton(SELECTORS.commentButton), 'after', 'toolbar'],
   addToWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   addToNextWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   viewNew: [viewNewButton, 'inside', 'inline'],
@@ -336,24 +345,6 @@ function showsHint(id) {
   return settings.hintsEnabled && s.enabled && s.hint && Boolean(s.binding);
 }
 
-// Some controls (Reminder) sit inside block wrappers; a chip placed next to
-// them would wrap onto its own line. Climb to the element that is an item of
-// the toolbar's flex row (looking through display: contents wrappers).
-function flexItem(el) {
-  let item = el;
-  for (let i = 0; i < 5 && item.parentElement; i++) {
-    let container = item.parentElement;
-    let display = getComputedStyle(container).display;
-    while (display === 'contents' && container.parentElement) {
-      container = container.parentElement;
-      display = getComputedStyle(container).display;
-    }
-    if (/flex|grid/.test(display)) return item;
-    item = item.parentElement;
-  }
-  return el;
-}
-
 // Chips placed after a control sit in a run of siblings right after it.
 function chipRunAfter(target) {
   const run = [];
@@ -361,10 +352,39 @@ function chipRunAfter(target) {
   return run;
 }
 
+function chipLayer() {
+  let layer = document.querySelector('.ktk-layer');
+  if (!layer) {
+    layer = document.createElement('div');
+    layer.className = 'ktk-layer';
+    document.body.append(layer);
+  }
+  return layer;
+}
+
+// Toolbar icons: a chip in the floating layer, centred under the button.
+function placeUnderChip(id, target) {
+  document.querySelectorAll(`[data-ktk-for="${id}"]:not(.ktk-key--under)`).forEach((el) => el.remove());
+  const layer = chipLayer();
+  let chip = layer.querySelector(`[data-ktk-for="${id}"]`);
+  const rect = target?.getBoundingClientRect();
+  if (!rect || !rect.width) return chip?.remove();
+  if (!chip) {
+    chip = keyChip('', 'under', id);
+    layer.append(chip);
+  }
+  const text = formatBinding(settings.shortcuts[id].binding);
+  if (chip.textContent !== text) chip.textContent = text;
+  const left = `${Math.round(rect.left + rect.width / 2)}px`;
+  const top = `${Math.round(rect.bottom - 3)}px`;
+  if (chip.style.left !== left) chip.style.left = left;
+  if (chip.style.top !== top) chip.style.top = top;
+}
+
 function placeChip(id) {
   const [find, placement, variant] = HINT_TARGETS[id];
-  const found = find();
-  const target = found && placement === 'after' ? flexItem(found) : found;
+  if (variant === 'toolbar') return placeUnderChip(id, find());
+  const target = find();
   const existing = document.querySelectorAll(`[data-ktk-for="${id}"]`);
   if (!target) return existing.forEach((el) => el.remove());
 
@@ -484,9 +504,16 @@ async function start() {
     schedule();
   });
 
-  new MutationObserver(schedule).observe(document.body, {
+  // The layer lives in <body>; ignore its own changes so it can't loop.
+  new MutationObserver((records) => {
+    if (records.every((r) => r.target.closest?.('.ktk-layer'))) return;
+    schedule();
+  }).observe(document.body, {
     childList: true, subtree: true, attributes: true, attributeFilter: ['class'],
   });
+  // Floating chips follow their buttons when panes scroll or the window resizes.
+  document.addEventListener('scroll', schedule, { capture: true, passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
   schedule();
 }
 

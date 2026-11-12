@@ -19,6 +19,7 @@
     { id: 'viewNew', short: 'View new items', group: 'triage', label: 'View new triage items', binding: 'n', enabled: true, hint: true },
     { id: 'nextEmail', short: 'Next email', group: 'triage', label: 'Open the next email', binding: 'j', enabled: false, hint: false },
     { id: 'prevEmail', short: 'Previous email', group: 'triage', label: 'Open the previous email', binding: 'k', enabled: false, hint: false },
+    { id: 'comment', short: 'Comment', group: 'triage', label: 'Add a comment', binding: 'c', enabled: true, hint: true },
     { id: 'saveToLater', short: 'Later', group: 'triage', label: 'Save to Later', binding: 'l', enabled: false, hint: true },
     { id: 'reminder', short: 'Reminder', group: 'triage', label: 'Add Reminder', binding: 'b', enabled: false, hint: true },
     { id: 'assign', short: 'Assign', group: 'triage', label: 'Assign to Colleague', binding: 'a', enabled: false, hint: true },

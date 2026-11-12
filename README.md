@@ -10,6 +10,7 @@ Default shortcuts (all changeable in Settings):
 | `w` | Add the open email to My Week (this or next week, per Settings) |
 | `t` | Open "Add to Timeline" (the briefcase) for the open email |
 | `n` | View new triage items (when Karbon shows the button) |
+| `c` | Add a comment to the open email |
 | `?` | Show the shortcut list (also lists Karbon's built-in keys) |
 | `Alt + Shift + W` / `Alt + Shift + C` | In the Add to Timeline dialog: Work / Contact tab (works while typing) |
 | `Ctrl + Enter` | In the Add to Timeline dialog: Add (`Esc` cancels, natively) |
@@ -29,7 +30,7 @@ Click the extension's toolbar icon, or "Change shortcuts" at the bottom of the `
 
 Settings sync across your Chrome profiles.
 
-**On-screen hints:** key chips styled like the Shortcuts row in Karbon's Help modal sit next to the open email's toolbar icons, Add to My Week, View New Triage Items, and the Add to Timeline dialog's tabs and buttons.
+**On-screen hints:** key chips styled like the Shortcuts row in Karbon's Help modal sit centred under the open email's toolbar icons (in a floating layer, so Karbon's toolbar layout is untouched), and beside Add to My Week, View New Triage Items, and the Add to Timeline dialog's tabs and buttons.
 
 ## Install (unpacked)
 
