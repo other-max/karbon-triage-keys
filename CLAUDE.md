@@ -18,12 +18,14 @@ Chrome extension (Manifest V3, no build step) that adds keyboard shortcuts and o
 - Many Karbon buttons are `<khq-button>` web components: click the `button` in their `shadowRoot`, and don't put children inside them (there's no slot, so they won't render).
 - Toolbar hint chips float in a fixed `.ktk-layer` centred under each icon so Karbon's toolbar layout is never changed. Chips on links and text buttons sit inline beside them. Chips copy Karbon's Help modal style (`#e6e6e6` / `#999`, 2px radius, Metric font, keys written like `Alt + W`).
 - "Add to My Week: next week" adds the email, then picks `button__listItem__week-1` from the This Week picker. Karbon re-renders the side tray after the save, so it waits and retries.
-- Default keys must not clash with Karbon's built-ins (`Ctrl+K`, `Alt+S/E/N/W/C/T`, `Ctrl+Alt+T`). R is Reply to All and Shift+R is Reply.
+- Default keys must not clash with Karbon's built-ins (`Ctrl+K`, `Alt+S/E/N/W/C/T`, `Ctrl+Alt+T`) or common Chrome keys (`BROWSER_SHORTCUTS`). Prefer single keys, then Alt. R is Reply to All and Shift+R is Reply.
+- `+` opens Karbon's Create new menu on any page (`anywhere: true`); while it's open, the `create` group's E/N/W/C/T pick an item, mirroring Karbon's Alt letters so they can reuse keys taken in the triage group.
 
 ## Testing
 
 There are no automated tests. Check changes in the browser:
 
+- Both test servers take a port argument (`serve-src.py 8767`, `preview-options.py . 8769`) when 8765/8766 are taken by something else.
 - **Settings page:** run `tools/preview-options.py` (the `options-preview` entry in `.claude/launch.json`) and open `http://127.0.0.1:8766/options/options.html`. It fakes `chrome.storage` in memory (`window.__stubData`).
 - **In Karbon, without reloading the extension:** run `tools/serve-src.py` (port 8765), then in a Karbon tab use the page's JavaScript to fake `chrome.storage`/`chrome.runtime`, fetch `shared.js` and `content.js`, and `eval` each wrapped in `(() => { … })()`. If the installed extension is also running in that tab, rename `data-ktk-for`/`dataset.ktkFor`/`ktk-layer` in the injected source first. Otherwise the two copies fight over the same chips, and keys like `#` fire twice.
 - Browser automation's `shift+w` sends `key: "w"` with Shift held. To test Shift keys, dispatch a `KeyboardEvent` with the real `key` (`"W"`).

@@ -93,9 +93,11 @@ function buildGroups() {
     h2.textContent = `${title} shortcuts`;
     const note = document.createElement('p');
     note.className = 'muted';
-    note.textContent = group === 'triage'
-      ? 'Work in Triage, Later, Cleared and other email lists, when you’re not typing.'
-      : 'Work while the Add to Timeline dialog is open, even while typing in its search box.';
+    note.textContent = {
+      triage: 'Work in Triage, Later, Cleared and other email lists, when you’re not typing.',
+      create: 'Work while Karbon’s Create new (+) menu is open. Open it with the Create new key above, then press one of these.',
+      dialog: 'Work while the Add to Timeline dialog is open, even while typing in its search box.',
+    }[group];
 
     const table = document.createElement('div');
     table.className = 'card table';

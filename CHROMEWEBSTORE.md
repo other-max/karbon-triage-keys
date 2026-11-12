@@ -10,7 +10,7 @@ Status: personal tool, loaded unpacked. Not yet planned for publishing; this fil
 Karbon Triage Keys
 
 **Short Description**
-Keyboard shortcuts for Karbon's Triage inbox: clear, add to My Week, add to a timeline and view new items, with on-screen key hints.
+Keyboard shortcuts for Karbon's Triage inbox: clear, add to My Week, add to a timeline, view new items and create new items, with on-screen key hints.
 
 **Detailed Description**
 TBD once both shortcuts work.
@@ -36,7 +36,7 @@ English
 | Permission | Type | Justification |
 |------------|------|---------------|
 | `storage` | permissions | Saves your shortcut keys, which shortcuts are on, and hint preferences, and syncs them across your Chrome profiles. |
-| `https://app2.karbonhq.com/*` | host_permissions | Listens for the shortcut keys while you use Karbon and presses Karbon's own Clear, Add to My Week, Add to Timeline or View New Triage Items button, and labels those buttons with their shortcut keys. |
+| `https://app2.karbonhq.com/*` | host_permissions | Listens for the shortcut keys while you use Karbon and presses Karbon's own buttons (Clear, Add to My Week, Add to Timeline, View New Triage Items, the Create new menu and others), and labels those buttons with their shortcut keys. |
 
 ## Privacy & Data Use
 
@@ -51,6 +51,7 @@ TBD (only needed if published).
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 0.7.0 | 2026-11-12 | Create new shortcuts: `+` opens Karbon's Create new menu from any Karbon page, then E/N/W/C/T picks Email, Note, Work, Contact or Time Entry, with key chips in the menu. Settings now warn when a key is a common Chrome shortcut. |
 | 0.6.0 | 2026-11-12 | Toolbar key chips now sit centred under each icon without changing Karbon's layout. New Comment shortcut (c). Fixed the My Week chip landing at the bottom of the sidebar. |
 | 0.5.1 | 2026-11-12 | Fixed toolbar key chips wrapping onto a second line. R is now Reply to All and Shift+R Reply. Dialog tab keys moved to Alt+Shift+W/C so no default clashes with Karbon's own keys. Reset-to-default is now an icon. |
 | 0.5.0 | 2026-11-12 | Settings page: change keys, turn shortcuts and their hints on or off, hint style, Shortcuts link, messages, My Week target, clash warnings, reset. New optional actions: next week, next/previous email, Save to Later, Reminder, Assign, Reply, Reply All, Forward. Works in Later/Cleared lists too. |
