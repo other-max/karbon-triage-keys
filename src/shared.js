@@ -12,7 +12,7 @@
     //        'dialog' fires inside the Add to Timeline dialog, even while typing.
     // hint:  whether the action has an on-screen chip.
     // fixed: Karbon's own key; can't be rebound or turned off, only its chip.
-    { id: 'clear', short: 'Clear', group: 'triage', label: 'Clear (archive) the open email', binding: '#', enabled: true, hint: true },
+    { id: 'clear', short: 'Clear', group: 'triage', label: 'Clear (archive) the open email', binding: 'e', enabled: true, hint: true },
     { id: 'addToWeek', short: 'My Week', group: 'triage', label: 'Add the open email to My Week', note: 'Uses the "My Week target" setting.', binding: 'w', enabled: true, hint: true },
     { id: 'addToNextWeek', short: 'My Week: next', group: 'triage', label: 'Add the open email to My Week: next week', binding: 'W', enabled: false, hint: true },
     { id: 'addToTimeline', short: 'Add to Timeline', group: 'triage', label: 'Add the open email to a timeline (briefcase)', binding: 't', enabled: true, hint: true },
@@ -50,8 +50,17 @@
     ['Ctrl+Alt+t', 'New time entry'],
   ];
 
+  // Defaults that changed: a saved binding still equal to the old default
+  // moves to the new one (so people who never changed it get the fix).
+  const SETTINGS_VERSION = 3;
+  const MIGRATIONS = {
+    2: { reply: ['r', 'R'], replyAll: ['R', 'r'], workTab: ['Alt+w', 'Alt+Shift+w'], contactTab: ['Alt+c', 'Alt+Shift+c'] },
+    // E archives in Gmail, Outlook and Superhuman; # deletes in Gmail.
+    3: { clear: ['#', 'e'] },
+  };
+
   const DEFAULTS = {
-    version: 2,
+    version: SETTINGS_VERSION,
     shortcuts: Object.fromEntries(
       ACTIONS.map((a) => [a.id, { enabled: a.enabled, binding: a.binding, hint: a.hint }])
     ),
@@ -124,13 +133,6 @@
   function isModified(binding) {
     return MODIFIERS.slice(0, 3).some((m) => binding.startsWith(`${m}+`));
   }
-
-  // Defaults that changed: a saved binding still equal to the old default
-  // moves to the new one (so people who never changed it get the fix).
-  const SETTINGS_VERSION = 2;
-  const MIGRATIONS = {
-    2: { reply: ['r', 'R'], replyAll: ['R', 'r'], workTab: ['Alt+w', 'Alt+Shift+w'], contactTab: ['Alt+c', 'Alt+Shift+c'] },
-  };
 
   function migrate(stored) {
     const s = structuredClone(stored);

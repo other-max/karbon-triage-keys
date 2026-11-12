@@ -51,6 +51,7 @@ TBD (only needed if published).
 
 | Version | Date | Notes |
 |---------|------|-------|
+| 0.8.0 | 2026-11-12 | Clear (archive) is now E, the archive key in Gmail and Outlook, instead of # (which deletes in Gmail). If you never changed the Clear key, it moves to E automatically. |
 | 0.6.0 | 2026-11-12 | Toolbar key chips now sit centred under each icon without changing Karbon's layout. New Comment shortcut (c). Fixed the My Week chip landing at the bottom of the sidebar. |
 | 0.5.1 | 2026-11-12 | Fixed toolbar key chips wrapping onto a second line. R is now Reply to All and Shift+R Reply. Dialog tab keys moved to Alt+Shift+W/C so no default clashes with Karbon's own keys. Reset-to-default is now an icon. |
 | 0.5.0 | 2026-11-12 | Settings page: change keys, turn shortcuts and their hints on or off, hint style, Shortcuts link, messages, My Week target, clash warnings, reset. New optional actions: next week, next/previous email, Save to Later, Reminder, Assign, Reply, Reply All, Forward. Works in Later/Cleared lists too. |
