@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Karbon Triage Keys",
+  "version": "0.1.0",
+  "description": "Keyboard shortcuts for triaging Karbon's Triage inbox: archive the open email, or add it to My Week.",
+  "host_permissions": [
+    "https://app2.karbonhq.com/*",
+    "https://*.karbonhq.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://app2.karbonhq.com/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
