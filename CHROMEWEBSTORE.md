@@ -134,11 +134,12 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 - [x] Icons at 16, 32, 48, 128
 - [x] Store copy, screenshots, promo tiles
 - [x] Privacy policy written (`docs/privacy-policy.md`)
-- [ ] Tools page and privacy page live on navica.llc (`navica-marketing`)
+- [x] Tools page and privacy page live on navica.llc (`navica-marketing`)
 - [ ] Test 0.7.0 by hand from this folder, unpacked: icon shows in the toolbar, settings page
       title, shortcuts and chips in Karbon
-- [ ] `scripts/package.sh`, upload `dist/navica-keys-0.9.0.zip`, fill the listing and Privacy
-      tab from this file, submit for review
+- [x] `scripts/package.sh`, upload `dist/navica-keys-0.9.2.zip`, fill the listing and Privacy
+      tab from this file (done 2026-11-12; draft saved)
+- [x] Tick the three data-use certifications on the Privacy tab, submit for review (submitted 2026-11-12)
 - [ ] After approval: add the store URL to the tools page (`navica-marketing`) so the button
       replaces "Coming soon"
 
@@ -146,7 +147,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 0.9.2 | 2026-11-12 | Store name is now "Navica Keys for Karbon (beta)", without the Triage tagline, since shortcuts will cover more than Triage. | Draft |
+| 0.9.2 | 2026-11-12 | Store name is now "Navica Keys for Karbon (beta)", without the Triage tagline, since shortcuts will cover more than Triage. | Pending review |
 | 0.9.1 | 2026-11-12 | New email, New note and New work in Karbon's + menu show their Shift+E/N/K key chips again, next to Karbon's own Alt key. | Draft |
 | 0.9.0 | 2026-11-12 | New email, note and work are now one key each on any Karbon page: Shift+E, Shift+N and Shift+K. They replace the `+` then letter menu shortcuts (Karbon's own Alt+C and Ctrl+Alt+T still cover Contact and Time Entry). | Draft |
 | 0.8.0 | 2026-11-12 | Create new shortcuts: `+` opens Karbon's Create new menu from any Karbon page, then E/N/W/C/T picks Email, Note, Work, Contact or Time Entry, with key chips in the menu. Settings now warn when a key is a common Chrome shortcut. Clear (archive) is now E, the archive key in Gmail and Outlook, instead of # (which deletes in Gmail); if you never changed the Clear key, it moves to E automatically. | Draft |
