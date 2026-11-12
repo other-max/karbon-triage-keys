@@ -4,13 +4,17 @@
     {
       "name": "options-preview",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["tools/preview-options.py"],
+      "runtimeArgs": [
+        "tools/preview-options.py"
+      ],
       "port": 8766
     },
     {
       "name": "src-for-karbon",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["tools/serve-src.py"],
+      "runtimeArgs": [
+        "tools/serve-src.py"
+      ],
       "port": 8765
     }
   ]

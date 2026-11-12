@@ -4,3 +4,6 @@ node_modules/
 .env
 .claude/settings.local.json
 __pycache__/
+dist/
+store/.work*/
+store/screenshots/.work/

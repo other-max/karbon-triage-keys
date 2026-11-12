@@ -1,6 +1,6 @@
-# Karbon Triage Keys
+# Navica Keys for Karbon
 
-Chrome extension (Manifest V3, no build step) that adds keyboard shortcuts and on-screen key hints to Karbon's Triage inbox at `app2.karbonhq.com`. Loaded unpacked; not on the Chrome Web Store. Keep `CHROMEWEBSTORE.md` updated with every user-facing or permission change (version history, permission justifications).
+Chrome extension (Manifest V3, no build step) that adds keyboard shortcuts and on-screen key hints to Karbon's Triage inbox at `app2.karbonhq.com`. Formerly Karbon Triage Keys; the folder name and internal `ktk`/`KTK` prefixes keep the old name on purpose. Being prepared for the Chrome Web Store under Navica LLC (homepage and privacy page at navica.llc/tools/navica-keys/, in the `navica-marketing` repo). Keep `CHROMEWEBSTORE.md` updated with every user-facing or permission change (version history, permission justifications).
 
 ## Layout
 
@@ -10,6 +10,7 @@ Chrome extension (Manifest V3, no build step) that adds keyboard shortcuts and o
 - `options/` — the settings page.
 - `docs/karbon-api.md` — Karbon's recorded requests and the UI hooks behind each action.
 - `tools/` — local test servers (see below).
+- `icons/`, `store/`, `scripts/` — store assets: icon sources (`store/icon*.svg`, rendered by `scripts/make-icons.sh`), `store/description.txt`, screenshot scenes (`store/screenshots/render.sh`), and `scripts/package.sh` for the upload zip. Re-render screenshots when chip styles, default keys, or the settings page change.
 
 ## How it works
 

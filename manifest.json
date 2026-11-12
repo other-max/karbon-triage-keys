@@ -1,8 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "Karbon Triage Keys",
-  "version": "0.6.0",
-  "description": "Keyboard shortcuts with on-screen hints for Karbon's Triage inbox: clear, add to My Week, add to a timeline, view new items.",
+  "name": "Navica Keys for Karbon: keyboard shortcuts for Triage",
+  "short_name": "Navica Keys",
+  "version": "0.7.0",
+  "description": "Keyboard shortcuts for Karbon's Triage inbox: clear, plan, file to a timeline, reply and more, with on-screen key hints.",
+  "homepage_url": "https://navica.llc/tools/navica-keys/",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "storage"
   ],
@@ -13,7 +21,11 @@
     "service_worker": "src/background.js"
   },
   "action": {
-    "default_title": "Karbon Triage Keys settings"
+    "default_title": "Navica Keys settings",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
   },
   "options_ui": {
     "page": "options/options.html",

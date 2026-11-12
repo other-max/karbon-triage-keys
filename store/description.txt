@@ -1,0 +1,34 @@
+Work through your Karbon Triage inbox from the keyboard.
+
+Navica Keys for Karbon adds single-key shortcuts to Karbon's Triage inbox. Clear an email, add it to My Week, or file it to a timeline with one key, and move on to the next. Small key hints sit right under Karbon's own buttons, so you learn the keys as you go.
+
+WHAT IT DOES
+
+• Clear with #. The open email is cleared and Karbon moves you to the next one.
+• Add to My Week with W. Choose whether W plans for this week or next week.
+• File to a timeline with T. Add to Timeline opens with the search ready. Type the work item, then press Ctrl+Enter to add it. Esc cancels.
+• Switch tabs while you type. In Add to Timeline, Alt+Shift+W and Alt+Shift+C move between the Work and Contact tabs without leaving the search box.
+• Comment with C, and view new triage items with N.
+• Turn on more when you're ready: next and previous email (J and K), Reply to All (R), Reply (Shift+R), Forward (F), Save to Later (L), Add Reminder (B), and Assign (A).
+• See every shortcut with ?. The list shows the shortcuts you've turned on, plus Karbon's own built-in keys.
+• Key hints on the page. Small chips under Karbon's toolbar buttons and beside Add to My Week show each key. Choose Karbon's gray style or high contrast, or turn hints off.
+
+MAKE IT YOURS
+
+Change any key, turn each shortcut and its hint on or off, and reset to the defaults at any time. The settings page warns you when two shortcuts share a key or when a key would take over one of Karbon's own shortcuts. The defaults never do. Settings sync across your Chrome profiles.
+
+STAYS OUT OF YOUR WAY
+
+Shortcuts never fire while you're typing in a field, and they pause while a Karbon dialog is open (except the dialog's own keys). They work in Triage, Later, Cleared, and Karbon's other email lists.
+
+WORKS WITH KARBON AS IT IS
+
+Each shortcut presses Karbon's own button, the same as clicking it, so Karbon does the work and everything stays in sync. There is nothing to connect and no API key to set up.
+
+PRIVACY
+
+The extension collects nothing. It only runs on Karbon's web app, keeps no record of your emails, and sends nothing to us or anyone else. Your shortcut settings are stored in Chrome. There is no account and no tracking.
+
+Built by Navica LLC.
+
+Navica Keys for Karbon is an independent product. It is not made, endorsed, or supported by Karbon. Karbon is a trademark of its owner.

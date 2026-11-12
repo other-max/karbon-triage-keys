@@ -163,7 +163,7 @@
       const { [STORAGE_KEY]: stored } = await chrome.storage.sync.get(STORAGE_KEY);
       return mergeSettings(stored);
     } catch (err) {
-      console.error('[Karbon Triage Keys] Could not load settings', err);
+      console.error('[Navica Keys] Could not load settings', err);
       return mergeSettings(null);
     }
   }

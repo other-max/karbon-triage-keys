@@ -1,4 +1,4 @@
-// Karbon Triage Keys — content script on app2.karbonhq.com.
+// Navica Keys for Karbon — content script on app2.karbonhq.com.
 //
 // Keys, which shortcuts are on, and which show chips all come from the
 // settings page (src/shared.js has the action list and defaults). Each
@@ -221,7 +221,7 @@ function run(event, action) {
   Promise.resolve()
     .then(() => ACTION_HANDLERS[action.id]())
     .catch((err) => {
-      console.error('[Karbon Triage Keys]', err);
+      console.error('[Navica Keys]', err);
       toast(`Failed: ${err.message}`);
     });
 }

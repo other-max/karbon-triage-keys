@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <title>Navica Keys: a keycap with a forward chevron</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#26648f"/>
+      <stop offset="1" stop-color="#1a4766"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <rect x="22" y="27" width="84" height="80" rx="18" fill="#a9bfcf"/>
+  <rect x="26" y="21" width="76" height="74" rx="15" fill="#fbfbf9"/>
+  <path d="M55 41 L73 58 L55 75" fill="none" stroke="#1d4f73" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

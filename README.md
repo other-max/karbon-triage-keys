@@ -1,6 +1,6 @@
-# Karbon Triage Keys
+# Navica Keys for Karbon
 
-Chrome extension that adds keyboard shortcuts to Karbon's Triage inbox:
+Chrome extension (formerly Karbon Triage Keys) that adds keyboard shortcuts to Karbon's Triage inbox. Published by Navica LLC; homepage https://navica.llc/tools/navica-keys/.
 
 Default shortcuts (all changeable in Settings):
 
@@ -37,6 +37,16 @@ Settings sync across your Chrome profiles.
 1. Open `chrome://extensions` and turn on **Developer mode**.
 2. Click **Load unpacked** and pick this folder.
 3. Reload any open Karbon tab.
+
+## Store listing
+
+Everything for the Chrome Web Store is in [CHROMEWEBSTORE.md](CHROMEWEBSTORE.md): listing text, permission justifications, privacy answers, and the pre-submit checklist.
+
+- `store/description.txt`: the detailed description, pasted as is.
+- `scripts/make-icons.sh`: renders `store/icon.svg` and `store/icon-small.svg` to `icons/`.
+- `store/screenshots/render.sh`: renders the five 1280×800 screenshots and two promo tiles to `store/screenshots/out/`.
+- `scripts/package.sh`: zips the extension to `dist/navica-keys-<version>.zip` for upload.
+- `docs/privacy-policy.md`: the privacy policy (live copy on navica.llc).
 
 ## How it works
 
