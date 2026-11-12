@@ -1,7 +1,7 @@
 // Builds each shot's browser window and Triage scene from data attributes, so the shot pages
 // hold only their copy. Key chips, the shortcut list, and the dialog chips use the extension's
 // own styles (read from content.js) and keys (from shared.js), so they stay in step with the code.
-const { ACTIONS, GROUPS, KARBON_SHORTCUTS, DEFAULTS, formatBinding } = globalThis.KTK;
+const { ACTIONS, GROUPS, KARBON_SHORTCUTS, DEFAULTS, bindingKeys } = globalThis.KTK;
 const ICON = '../icons/icon32.png';
 const svg = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
 const I = {
@@ -23,9 +23,11 @@ function shotSettings(on = [], off = []) {
   for (const id of off) s.shortcuts[id].hint = false;
   return s;
 }
-const chipText = (s, id) => formatBinding(s.shortcuts[id].binding);
+const chipText = (s, id) => s.shortcuts[id].binding;
 const shows = (s, id) => s.hintsEnabled && s.shortcuts[id].enabled && s.shortcuts[id].hint && s.shortcuts[id].binding;
-const chip = (text, variant) => `<span class="ktk-key${variant ? ` ktk-key--${variant}` : ''}">${text}</span>`;
+// One box per key, like the content script's keyChip().
+const chip = (binding, variant) => `<span class="ktk-key${variant ? ` ktk-key--${variant}` : ''}">${
+  bindingKeys(binding).map((k) => `<span class="ktk-cap">${k}</span>`).join('')}</span>`;
 
 const EMAILS = [
   ['Dana Whitfield', '9:41 AM', 'Q3 payroll documents for review', 'Hi team, attached are the payroll registers and…'],
@@ -58,7 +60,7 @@ function triage(s) {
         <p>Attached are the payroll registers and the tax deposit confirmations for July through September. Two employees changed their withholding in August, so those forms are in there too.</p>
         <p>Could you look these over before the quarterly filing? Happy to jump on a call if anything looks off.</p>
         <p>Thanks,<br>Dana</p></div>
-      ${s.helpLinkEnabled ? `<div class="launch-host"><button type="button" class="ktk-help-launch">${help.enabled ? chip(formatBinding(help.binding)) : ''}Shortcuts</button></div>` : ''}
+      ${s.helpLinkEnabled ? `<div class="launch-host"><button type="button" class="ktk-help-launch">${help.enabled ? chip(help.binding) : ''}Shortcuts</button></div>` : ''}
     </div></div>`;
 }
 
@@ -69,7 +71,7 @@ function helpOverlay(s) {
       .map((a) => [s.shortcuts[a.id].binding, a.short ?? a.label]) }));
   sections.push({ title: 'Karbon (built in)', items: KARBON_SHORTCUTS });
   const body = sections.filter((x) => x.items.length).map((x) => `<div class="ktk-help-section"><h3>${x.title}:</h3><div class="ktk-help-items">${
-    x.items.map(([b, label]) => `<div class="ktk-help-item">${chip(formatBinding(b))}${label}</div>`).join('')}</div></div>`).join('');
+    x.items.map(([b, label]) => `<div class="ktk-help-item">${chip(b)}${label}</div>`).join('')}</div></div>`).join('');
   return `<div class="ktk-help"><div class="ktk-help-card">${body}<div class="ktk-help-foot"><a>Change shortcuts</a> · <a>Hide key hints</a> · Esc to close</div></div></div>`;
 }
 
