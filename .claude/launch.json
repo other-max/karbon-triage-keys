@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "options-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["tools/preview-options.py"],
+      "port": 8766
+    },
+    {
+      "name": "src-for-karbon",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["tools/serve-src.py"],
+      "port": 8765
+    }
+  ]
+}

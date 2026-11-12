@@ -12,6 +12,8 @@ Body: `{ "triageItem": { ...the full triage item as listed..., "action": "ClearT
 
 UI: row button `khq-button[data-e2e="triage-item-clear"]` (title "Clear").
 
+Undo: in the Cleared list the same slot holds `khq-button[data-e2e="triage-item-cleared---undo"]` (title "Cleared - Undo", icon `triage-unclear`), which moves the item back to Triage.
+
 ## Add to My Week (`w`)
 
 `PUT /contentitems/api/{tenant}/emailConversationV2s/{id}`
