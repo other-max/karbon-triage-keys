@@ -150,6 +150,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.9.3 | 2026-11-12 | Reply, Reply to All and Forward show their key chip inside the button instead of under it. Toolbar key chips dim with the page behind Karbon's dialogs. The Add to Timeline tab keys are now Alt+W and Alt+C (they only take over Karbon's New work/New contact while that dialog is open); if you never changed them, they move automatically. | Draft |
 | 0.9.2 | 2026-11-12 | Store name is now "Navica Keys for Karbon (beta)", without the Triage tagline, since shortcuts will cover more than Triage. | Pending review |
 | 0.9.1 | 2026-11-12 | New email, New note and New work in Karbon's + menu show their Shift+E/N/K key chips again, next to Karbon's own Alt key. | Draft |
 | 0.9.0 | 2026-11-12 | New email, note and work are now one key each on any Karbon page: Shift+E, Shift+N and Shift+K. They replace the `+` then letter menu shortcuts (Karbon's own Alt+C and Ctrl+Alt+T still cover Contact and Time Entry). | Draft |

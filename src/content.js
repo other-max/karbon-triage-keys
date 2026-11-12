@@ -310,6 +310,11 @@ const STYLE = `
 }
 .ktk-key--under .ktk-cap { min-width: 13px; padding: 0 3px; }
 .ktk-key--inline { margin: 0 0 0 6px; vertical-align: middle; }
+/* Reply / Reply to All / Forward: chip at the end of the button. The icon-only
+   buttons are a fixed 32px square, so let them grow to fit it. */
+.ktk-key--button { gap: 1px; font-size: 10px; line-height: 13px; }
+.ktk-key--button .ktk-cap { min-width: 13px; padding: 0 3px; }
+[data-e2e^="button__triageStickyMenu__"]:has(> .ktk-key--button) { width: auto; padding: 0 8px; gap: 6px; }
 /* Create new (+) menu: chip at the right edge, before Karbon's own Alt hint. */
 .ktk-key--menu { order: 1; margin-left: auto; }
 [role="menuitem"]:has(> .ktk-key--menu) > [data-slot="dropdown-menu-shortcut"] { order: 2; margin-left: 8px; }
@@ -357,9 +362,10 @@ const HINT_TARGETS = {
   saveToLater: [() => toolbarButton(SELECTORS.saveToLaterButton), 'after', 'toolbar'],
   reminder: [() => toolbarButton(SELECTORS.reminderButton), 'after', 'toolbar'],
   assign: [() => toolbarButton(SELECTORS.assignButton), 'after', 'toolbar'],
-  reply: [() => toolbarButton(SELECTORS.replyButton), 'after', 'toolbar'],
-  replyAll: [() => toolbarButton(SELECTORS.replyAllButton), 'after', 'toolbar'],
-  forward: [() => toolbarButton(SELECTORS.forwardButton), 'after', 'toolbar'],
+  // Reply/Forward are plain <button>s, so the chip sits inside, at the end.
+  reply: [() => toolbarButton(SELECTORS.replyButton), 'inside', 'button'],
+  replyAll: [() => toolbarButton(SELECTORS.replyAllButton), 'inside', 'button'],
+  forward: [() => toolbarButton(SELECTORS.forwardButton), 'inside', 'button'],
   comment: [() => toolbarButton(SELECTORS.commentButton), 'after', 'toolbar'],
   addToWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
   addToNextWeek: [() => document.querySelector(SELECTORS.addToWeekButton), 'after', 'inline'],
@@ -411,6 +417,26 @@ function chipRunAfter(target) {
   return run;
 }
 
+// The layer sits above Karbon's page, so a Karbon dialog's backdrop doesn't
+// cover the chips. Look at what's stacked over the button's centre: dim the
+// chip by any see-through backdrop there, and hide it under anything solid.
+function shadeLikeTarget(chip, target, rect) {
+  let shade = 1;
+  let covered = false;
+  const hits = document.elementsFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  for (const el of hits) {
+    if (el === target || el.contains(target)) break;
+    if (target.contains(el)) continue;
+    const alpha = Number(getComputedStyle(el).backgroundColor.match(/[\d.]+/g)?.[3] ?? 1);
+    if (alpha >= 1) { covered = true; break; }
+    shade *= 1 - alpha;
+  }
+  const filter = shade < 1 ? `brightness(${shade.toFixed(2)})` : '';
+  const visibility = covered ? 'hidden' : '';
+  if (chip.style.filter !== filter) chip.style.filter = filter;
+  if (chip.style.visibility !== visibility) chip.style.visibility = visibility;
+}
+
 function chipLayer() {
   let layer = document.querySelector('.ktk-layer');
   if (!layer) {
@@ -433,6 +459,7 @@ function placeUnderChip(id, target) {
     layer.append(chip);
   }
   setKeys(chip, settings.shortcuts[id].binding);
+  shadeLikeTarget(chip, target, rect);
   const left = `${Math.round(rect.left + rect.width / 2)}px`;
   const top = `${Math.round(rect.bottom - 3)}px`;
   if (chip.style.left !== left) chip.style.left = left;

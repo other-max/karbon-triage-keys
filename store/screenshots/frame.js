@@ -42,6 +42,10 @@ const EMAILS = [
 
 function triage(s) {
   const btn = (id, icon) => `<span class="btn">${svg(I[icon])}${id && shows(s, id) ? chip(chipText(s, id), 'under') : ''}</span>`;
+  // Reply / Reply All / Forward carry their chip inside the button, like content.js.
+  const endBtn = (id, icon) => shows(s, id)
+    ? `<span class="btn btn--end">${svg(I[icon])}${chip(chipText(s, id), 'button')}</span>`
+    : btn(id, icon);
   const rows = EMAILS.map(([who, when, sub, snip], i) =>
     `<div class="row${i === 0 ? ' on' : ''}"><div class="who"><b>${who}</b><span>${when}</span></div><div class="sub">${sub}</div><div class="snip">${snip}</div></div>`).join('');
   const week = shows(s, 'addToWeek') ? chip(chipText(s, 'addToWeek'), 'inline') : '';
@@ -52,7 +56,7 @@ function triage(s) {
       <div class="new">View 3 new items${shows(s, 'viewNew') ? chip(chipText(s, 'viewNew'), 'inline') : ''}</div>${rows}</div>
     <div class="read">
       <div class="etools">${btn('assign', 'assign')}${btn('reminder', 'reminder')}${btn('saveToLater', 'later')}${btn('addToTimeline', 'work')}${btn('clear', 'clear')}
-        <span class="gap"></span>${btn('reply', 'reply')}${btn('replyAll', 'replyAll')}${btn('forward', 'forward')}${btn('comment', 'comment')}</div>
+        <span class="gap"></span>${endBtn('reply', 'reply')}${endBtn('replyAll', 'replyAll')}${endBtn('forward', 'forward')}${btn('comment', 'comment')}</div>
       <div class="mail"><h1>Q3 payroll documents for review</h1>
         <div class="from"><span class="av">DW</span><div><b>Dana Whitfield</b><small>to Bookkeeping · 9:41 AM</small></div></div>
         <div class="tray"><span>Northwind Bakery</span><span>·</span><a>Add to My Week${week}</a></div>

@@ -33,8 +33,8 @@
     { id: 'newEmail', short: 'New email', group: 'create', label: 'New email', binding: 'E', enabled: true, hint: true },
     { id: 'newNote', short: 'New note', group: 'create', label: 'New note', binding: 'N', enabled: true, hint: true },
     { id: 'newWork', short: 'New work', group: 'create', label: 'New work', binding: 'K', enabled: true, hint: true },
-    { id: 'workTab', short: 'Work tab', group: 'dialog', label: 'Switch to the Work tab', binding: 'Alt+Shift+w', enabled: true, hint: true },
-    { id: 'contactTab', short: 'Contact tab', group: 'dialog', label: 'Switch to the Contact tab', binding: 'Alt+Shift+c', enabled: true, hint: true },
+    { id: 'workTab', short: 'Work tab', group: 'dialog', label: 'Switch to the Work tab', binding: 'Alt+w', enabled: true, hint: true },
+    { id: 'contactTab', short: 'Contact tab', group: 'dialog', label: 'Switch to the Contact tab', binding: 'Alt+c', enabled: true, hint: true },
     { id: 'dialogAdd', short: 'Add', group: 'dialog', label: 'Add', binding: 'Ctrl+Enter', enabled: true, hint: true },
     { id: 'dialogCancel', short: 'Cancel', group: 'dialog', label: 'Cancel', binding: 'Escape', enabled: true, hint: true, fixed: true },
   ];
@@ -72,7 +72,7 @@
   // Defaults that changed: a saved binding still equal to the old default
   // moves to the new one (so people who never changed it get the fix).
   // A migration is { id: [oldDefault, newDefault] } or a function of the settings.
-  const SETTINGS_VERSION = 5;
+  const SETTINGS_VERSION = 6;
   const MIGRATIONS = {
     2: { reply: ['r', 'R'], replyAll: ['R', 'r'], workTab: ['Alt+w', 'Alt+Shift+w'], contactTab: ['Alt+c', 'Alt+Shift+c'] },
     // E archives in Gmail, Outlook and Superhuman; # deletes in Gmail.
@@ -86,6 +86,9 @@
     5: (s) => {
       for (const id of ['newEmail', 'newNote', 'newWork']) if (s.shortcuts?.[id]) s.shortcuts[id].hint = true;
     },
+    // 0.9.3: the dialog tabs drop Shift. Karbon's Alt+W/Alt+C (New work/contact)
+    // are only taken over while the Add to Timeline dialog is open.
+    6: { workTab: ['Alt+Shift+w', 'Alt+w'], contactTab: ['Alt+Shift+c', 'Alt+c'] },
   };
 
   const DEFAULTS = {

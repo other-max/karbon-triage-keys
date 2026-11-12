@@ -13,7 +13,7 @@ Default shortcuts (all changeable in Settings):
 | `c` | Add a comment to the open email |
 | `Shift + E` / `Shift + N` / `Shift + K` | New email / New note / New work, on any Karbon page (opens Karbon's Create new menu and picks the item in one step) |
 | `?` | Show the shortcut list (also lists Karbon's built-in keys) |
-| `Alt + Shift + W` / `Alt + Shift + C` | In the Add to Timeline dialog: Work / Contact tab (works while typing) |
+| `Alt + W` / `Alt + C` | In the Add to Timeline dialog: Work / Contact tab (works while typing) |
 | `Ctrl + Enter` | In the Add to Timeline dialog: Add (`Esc` cancels, natively) |
 
 Off by default, ready to turn on: next week (`Shift + W`), next/previous email (`j`/`k`), Save to Later (`l`), Add Reminder (`b`), Assign (`a`), Reply to All (`r`), Reply (`Shift + R`), Forward (`f`).
