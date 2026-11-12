@@ -1,17 +1,31 @@
 {
   "manifest_version": 3,
   "name": "Karbon Triage Keys",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Keyboard shortcuts with on-screen hints for Karbon's Triage inbox: clear, add to My Week, add to a timeline, view new items.",
+  "permissions": [
+    "storage"
+  ],
   "host_permissions": [
     "https://app2.karbonhq.com/*"
   ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_title": "Karbon Triage Keys settings"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
   "content_scripts": [
     {
       "matches": [
         "https://app2.karbonhq.com/*"
       ],
       "js": [
+        "src/shared.js",
         "src/content.js"
       ],
       "run_at": "document_idle"
