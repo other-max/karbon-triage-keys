@@ -94,6 +94,8 @@ async function build() {
     const d = b.dataset;
     const ids = (v) => (v || '').split(' ').filter(Boolean);
     const s = shotSettings(ids(d.on), ids(d.off));
+    // Keys shown for a shot only: data-keys="workTab:w contactTab:c".
+    for (const [id, key] of ids(d.keys).map((x) => x.split(':'))) s.shortcuts[id].binding = key;
     const scene = d.scene === 'triage' ? triage(s) + (d.overlay === 'help' ? helpOverlay(s) : d.overlay === 'dialog' ? timelineDialog(s) : '') : '';
     const extra = b.innerHTML;
     b.innerHTML = `
