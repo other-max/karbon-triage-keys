@@ -39,7 +39,7 @@ const EMAILS = [
 ];
 
 function triage(s) {
-  const btn = (id, icon) => `<span class="btn${id && id === s.pressed ? ' pressed' : ''}">${svg(I[icon])}${id && shows(s, id) ? chip(chipText(s, id), 'under') : ''}</span>`;
+  const btn = (id, icon) => `<span class="btn">${svg(I[icon])}${id && shows(s, id) ? chip(chipText(s, id), 'under') : ''}</span>`;
   const rows = EMAILS.map(([who, when, sub, snip], i) =>
     `<div class="row${i === 0 ? ' on' : ''}"><div class="who"><b>${who}</b><span>${when}</span></div><div class="sub">${sub}</div><div class="snip">${snip}</div></div>`).join('');
   const week = shows(s, 'addToWeek') ? chip(chipText(s, 'addToWeek'), 'inline') : '';
@@ -94,7 +94,6 @@ async function build() {
     const d = b.dataset;
     const ids = (v) => (v || '').split(' ').filter(Boolean);
     const s = shotSettings(ids(d.on), ids(d.off));
-    s.pressed = d.pressed; // A toolbar button shown as just pressed: data-pressed="addToTimeline".
     const scene = d.scene === 'triage' ? triage(s) + (d.overlay === 'help' ? helpOverlay(s) : d.overlay === 'dialog' ? timelineDialog(s) : '') : '';
     const extra = b.innerHTML;
     b.innerHTML = `
