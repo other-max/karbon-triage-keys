@@ -2,6 +2,10 @@
 
 > Last Updated: 2026-11-19
 
+**Status: unpublished and mothballed (2026-11-19).** Karbon said in writing that it treats the
+extension as a Terms of Use violation, so the listing was taken down and the repo archived. Kept
+for reference only; don't resubmit.
+
 This file is the source for everything typed into the Chrome Developer Dashboard. Keep it in
 step with `manifest.json`. Formerly "Karbon Triage Keys" (renamed in 0.7.0; the repo folder and
 the internal `ktk` prefixes keep the old name, since users never see them).

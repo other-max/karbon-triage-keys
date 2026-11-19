@@ -1,5 +1,7 @@
 # Navica Keys
 
+**MOTHBALLED 2026-11-19. Do no new work here.** Karbon said in writing that it considers the extension a violation of its Terms of Use. The Chrome Web Store listing is unpublished, and the GitHub repo is public under MIT and archived (read-only), with a do-not-use warning at the top of `README.md`. To change anything, first unarchive it with `gh repo unarchive other-max/karbon-triage-keys`, and keep the warning.
+
 Chrome extension (Manifest V3, no build step) that adds keyboard shortcuts and on-screen key hints to Karbon's Triage inbox at `app2.karbonhq.com` (and Karbon's staging app, `webapp-stage.karbonhq.com`). Formerly Karbon Triage Keys; the folder name and internal `ktk`/`KTK` prefixes keep the old name on purpose. Being prepared for the Chrome Web Store under Navica LLC (homepage and privacy page at navica.llc/tools/navica-keys/, in the `navica-marketing` repo). Keep `CHROMEWEBSTORE.md` updated with every user-facing or permission change (version history, permission justifications).
 
 ## Layout

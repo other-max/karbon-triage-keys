@@ -1,6 +1,11 @@
-# Navica Keys
+# Navica Keys (archived)
 
-Chrome extension (formerly Karbon Triage Keys) that adds keyboard shortcuts to Karbon's Triage inbox. Published by Navica LLC; homepage https://navica.llc/tools/navica-keys/.
+> [!CAUTION]
+> **Do not install or use this extension.** Karbon has told us in writing that it considers browser extensions that interact with, change, or automate its web app a violation of its [Terms of Use](https://karbonhq.com/terms/) and [Acceptable Use Policy](https://karbonhq.com/acceptable-use-policy/) (which limits access to "Karbon publicly supported interfaces"). Using it could get your firm's Karbon account suspended or terminated.
+>
+> The project is **discontinued and archived**. It has been removed from the Chrome Web Store, gets no updates, and accepts no issues or pull requests. The source is published only so people can read it and learn from it (Manifest V3 content scripts, shadow-DOM buttons, floating key hints, a settings page with clash detection). Navica LLC is not affiliated with or endorsed by Karbon. "Karbon" is Karbon's trademark.
+
+Chrome extension (formerly Karbon Triage Keys) that added keyboard shortcuts to Karbon's Triage inbox. Built by Navica LLC in November 2026 and mothballed on 2026-11-19. The rest of this README describes how it worked.
 
 Default shortcuts (all changeable in Settings):
 
@@ -35,6 +40,8 @@ Settings sync across your Chrome profiles.
 
 ## Install (unpacked)
 
+Don't (see the warning above). For reference only:
+
 1. Open `chrome://extensions` and turn on **Developer mode**.
 2. Click **Load unpacked** and pick this folder.
 3. Reload any open Karbon tab.
@@ -52,3 +59,7 @@ Everything for the Chrome Web Store is in [CHROMEWEBSTORE.md](CHROMEWEBSTORE.md)
 ## How it works
 
 Each shortcut presses Karbon's own button, so Karbon updates the list itself. The recorded API calls are in [docs/karbon-api.md](docs/karbon-api.md). If Karbon changes its markup, update `SELECTORS` in `src/content.js`. The list of actions and their defaults is in `src/shared.js`; the settings page is in `options/`.
+
+## License
+
+[MIT](LICENSE). The license covers this code only. It gives you no rights under Karbon's terms, and it doesn't make using the extension with Karbon allowed.
