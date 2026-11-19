@@ -1,4 +1,4 @@
-# Navica Keys for Karbon
+# Navica Keys
 
 Chrome extension (formerly Karbon Triage Keys) that adds keyboard shortcuts to Karbon's Triage inbox. Published by Navica LLC; homepage https://navica.llc/tools/navica-keys/.
 

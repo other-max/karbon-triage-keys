@@ -1,4 +1,4 @@
-// Navica Keys for Karbon — content script on app2.karbonhq.com and webapp-stage.karbonhq.com.
+// Navica Keys — content script on app2.karbonhq.com and webapp-stage.karbonhq.com.
 //
 // Keys, which shortcuts are on, and which show chips all come from the
 // settings page (src/shared.js has the action list and defaults). Each

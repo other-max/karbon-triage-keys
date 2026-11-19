@@ -1,4 +1,4 @@
-# Chrome Web Store Listing: Navica Keys for Karbon
+# Chrome Web Store Listing: Navica Keys
 
 > Last Updated: 2026-11-19
 
@@ -12,10 +12,9 @@ the internal `ktk` prefixes keep the old name, since users never see them).
 cgbfffanamhgebmphjdnjhlfbbchjcjp (store URL once published: https://chromewebstore.google.com/detail/cgbfffanamhgebmphjdnjhlfbbchjcjp)
 
 **Extension Name**
-Navica Keys for Karbon (beta)
+Navica Keys (beta)
 
-From the manifest `name` (29 of 75 characters). Kept general, not tied to Triage, since shortcuts will grow beyond the Triage inbox. Drop " (beta)" from the name once the extension leaves beta. `short_name` is "Navica Keys". "Karbon" comes
-after "for", never first, since it's Karbon's trademark.
+From the manifest `name` (18 of 75 characters). Kept general, not tied to Triage, since shortcuts will grow beyond the Triage inbox. Karbon's name is left out of the title (it was "Navica Keys for Karbon (beta)" up to 0.9.3); the description still says it works with Karbon. Drop " (beta)" once the extension leaves beta. `short_name` is "Navica Keys".
 
 **Short Description**
 Keyboard shortcuts for Karbon's Triage inbox: clear, plan, file to a timeline, reply and more, with on-screen key hints.
@@ -30,7 +29,7 @@ Markdown.
 Productivity (Workflow & Planning)
 
 **Single Purpose**
-Navica Keys for Karbon adds keyboard shortcuts, with on-screen key hints, to the Triage inbox in
+Navica Keys adds keyboard shortcuts, with on-screen key hints, to the Triage inbox in
 Karbon's web app. Each shortcut presses one of Karbon's own email buttons (such as Clear, Add to
 My Week, or Add to Timeline) for the open email.
 
@@ -151,7 +150,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 0.9.4 | 2026-11-19 | Also runs on Karbon's staging site, webapp-stage.karbonhq.com. | Draft |
+| 0.9.4 | 2026-11-19 | Renamed to "Navica Keys (beta)", without "for Karbon". Also runs on Karbon's staging site, webapp-stage.karbonhq.com. | Draft |
 | 0.9.3 | 2026-11-12 | Reply, Reply to All and Forward show their key chip inside the button instead of under it. Toolbar key chips dim with the page behind Karbon's dialogs. The Add to Timeline tab keys are now Alt+W and Alt+C (they only take over Karbon's New work/New contact while that dialog is open); if you never changed them, they move automatically. | Draft |
 | 0.9.2 | 2026-11-12 | Store name is now "Navica Keys for Karbon (beta)", without the Triage tagline, since shortcuts will cover more than Triage. | Pending review |
 | 0.9.1 | 2026-11-12 | New email, New note and New work in Karbon's + menu show their Shift+E/N/K key chips again, next to Karbon's own Alt key. | Draft |

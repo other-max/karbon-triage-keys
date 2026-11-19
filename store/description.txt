@@ -1,6 +1,6 @@
 Work through your Karbon Triage inbox from the keyboard.
 
-Navica Keys for Karbon adds single-key shortcuts to Karbon's Triage inbox. Clear an email, add it to My Week, or file it to a timeline with one key, and move on to the next. Small key hints sit right under Karbon's own buttons, so you learn the keys as you go.
+Navica Keys adds single-key shortcuts to Karbon's Triage inbox. Clear an email, add it to My Week, or file it to a timeline with one key, and move on to the next. Small key hints sit right under Karbon's own buttons, so you learn the keys as you go.
 
 WHAT IT DOES
 
@@ -32,4 +32,4 @@ The extension collects nothing. It only runs on Karbon's web app (app2.karbonhq.
 
 Built by Navica LLC.
 
-Navica Keys for Karbon is an independent product. It is not made, endorsed, or supported by Karbon. Karbon is a trademark of its owner.
+Navica Keys is an independent product. It is not made, endorsed, or supported by Karbon. Karbon is a trademark of its owner.

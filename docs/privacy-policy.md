@@ -1,10 +1,10 @@
-# Privacy Policy for Navica Keys for Karbon
+# Privacy Policy for Navica Keys
 
 Effective: 2026-11-12
 
 Published at https://navica.llc/tools/navica-keys/privacy/. Keep this file and that page in step.
 
-Navica Keys for Karbon is a Chrome extension published by Navica LLC. It adds keyboard
+Navica Keys is a Chrome extension published by Navica LLC. It adds keyboard
 shortcuts and on-screen key hints to the Triage inbox in Karbon's web app. This policy explains
 what it handles. The short version: it collects nothing, and it sends nothing to us.
 
