@@ -24,11 +24,11 @@ Shortcuts never fire while you're typing in a field, and they pause while a Karb
 
 WORKS WITH KARBON AS IT IS
 
-Each shortcut presses Karbon's own button, the same as clicking it, so Karbon does the work and everything stays in sync. There is nothing to connect and no API key to set up.
+Each shortcut presses Karbon's own button, the same as clicking it, so Karbon does the work and everything stays in sync. There is nothing to connect or set up: install it, open Karbon, and the keys are ready.
 
 PRIVACY
 
-The extension collects nothing. It only runs on Karbon's web app, keeps no record of your emails, and sends nothing to us or anyone else. Your shortcut settings are stored in Chrome. There is no account and no tracking.
+The extension collects nothing. It only runs on Karbon's web app (app2.karbonhq.com and Karbon's staging site, webapp-stage.karbonhq.com), keeps no record of your emails, and sends nothing to us or anyone else. Your shortcut settings are stored in Chrome. There is no tracking.
 
 Built by Navica LLC.
 
