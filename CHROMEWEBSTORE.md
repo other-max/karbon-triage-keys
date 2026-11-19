@@ -1,6 +1,6 @@
 # Chrome Web Store Listing: Navica Keys for Karbon
 
-> Last Updated: 2026-11-12
+> Last Updated: 2026-11-19
 
 This file is the source for everything typed into the Chrome Developer Dashboard. Keep it in
 step with `manifest.json`. Formerly "Karbon Triage Keys" (renamed in 0.7.0; the repo folder and
@@ -74,6 +74,7 @@ Re-render after changing chip styles, default keys, or the settings page.
 |------------|------|---------------|
 | `storage` | permissions | Saves the user's shortcut settings: which key each shortcut uses, which shortcuts and key hints are on, the hint style, and whether "Add to My Week" plans for this week or next. Chrome syncs them across the user's own profiles. Nothing else is stored. |
 | `https://app2.karbonhq.com/*` | host_permissions | Karbon's web app, the only site the extension works on. Its content script listens for the shortcut keys and, when one is pressed, presses Karbon's matching button for the open email (Clear, Add to My Week, Add to Timeline, Reply, and so on), or picks New email, New note or New work from Karbon's Create new (+) menu. It also places small key hints beside those buttons. It reads no email content and makes no network requests. |
+| `https://webapp-stage.karbonhq.com/*` | host_permissions | Karbon's staging web app (the same app before release). The content script does exactly the same there as on app2.karbonhq.com, so shortcuts can be checked against upcoming Karbon changes. |
 
 **Remote code:** No. All code ships in the package.
 
@@ -150,6 +151,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.9.4 | 2026-11-19 | Also runs on Karbon's staging site, webapp-stage.karbonhq.com. | Draft |
 | 0.9.3 | 2026-11-12 | Reply, Reply to All and Forward show their key chip inside the button instead of under it. Toolbar key chips dim with the page behind Karbon's dialogs. The Add to Timeline tab keys are now Alt+W and Alt+C (they only take over Karbon's New work/New contact while that dialog is open); if you never changed them, they move automatically. | Draft |
 | 0.9.2 | 2026-11-12 | Store name is now "Navica Keys for Karbon (beta)", without the Triage tagline, since shortcuts will cover more than Triage. | Pending review |
 | 0.9.1 | 2026-11-12 | New email, New note and New work in Karbon's + menu show their Shift+E/N/K key chips again, next to Karbon's own Alt key. | Draft |
@@ -168,7 +170,7 @@ https://navica.llc/tools/navica-keys/ (also the manifest `homepage_url`)
 ## Review Notes
 
 ### Known Issues / Limitations
-- Works only on Karbon's web app at app2.karbonhq.com. If Karbon changes its page markup, a
+- Works only on Karbon's web app at app2.karbonhq.com and its staging site webapp-stage.karbonhq.com. If Karbon changes its page markup, a
   shortcut can stop finding its button until the extension is updated.
 - Shortcuts act on the email open in the reading pane; with no email open, they show "No email
   open".

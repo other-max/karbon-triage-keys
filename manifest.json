@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Navica Keys for Karbon (beta)",
   "short_name": "Navica Keys",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Keyboard shortcuts for Karbon's Triage inbox: clear, plan, file to a timeline, reply and more, with on-screen key hints.",
   "homepage_url": "https://navica.llc/tools/navica-keys/",
   "icons": {
@@ -15,7 +15,8 @@
     "storage"
   ],
   "host_permissions": [
-    "https://app2.karbonhq.com/*"
+    "https://app2.karbonhq.com/*",
+    "https://webapp-stage.karbonhq.com/*"
   ],
   "background": {
     "service_worker": "src/background.js"
@@ -34,7 +35,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://app2.karbonhq.com/*"
+        "https://app2.karbonhq.com/*",
+        "https://webapp-stage.karbonhq.com/*"
       ],
       "js": [
         "src/shared.js",

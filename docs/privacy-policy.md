@@ -10,7 +10,7 @@ what it handles. The short version: it collects nothing, and it sends nothing to
 
 ## Where it runs
 
-The extension runs only on Karbon's web app (app2.karbonhq.com). It can't see any other site.
+The extension runs only on Karbon's web app (app2.karbonhq.com, and its staging site webapp-stage.karbonhq.com). It can't see any other site.
 
 ## What the extension reads
 
